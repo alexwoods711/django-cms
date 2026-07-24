@@ -1,0 +1,1632 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Martin <martinpajuste@gmail.com>, 2023
+# Fabian Braun <fsbraun@gmx.de>, 2026
+# Rivo Zängov <eraser@eraser.ee>, 2026
+# Jonas Obrist <ojiidotch@gmail.com>, 2011
+msgid ""
+msgstr ""
+"Project-Id-Version: django-cms\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-26 19:53+0000\n"
+"PO-Revision-Date: 2022-12-12 10:32+0000\n"
+"Last-Translator: Rivo Zängov <eraser@eraser.ee>, 2026\n"
+"Language-Team: Estonian (https://app.transifex.com/divio/teams/58664/et/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "All"
+msgstr "Kõik"
+
+msgid "Copy permissions"
+msgstr "Kopeeri õigused"
+
+msgid "Slug"
+msgstr "Aadressi komponent"
+
+msgid "The part of the title that is used in the URL"
+msgstr "Osa pealkirjast, mida kasutatakse internetiaadressi koostamiseks"
+
+msgid "Page type"
+msgstr "Lehekülje tüüp"
+
+msgid "Page Types"
+msgstr "Lehekülje tüübid"
+
+msgid "Overwrite URL"
+msgstr "Kirjuta üle internetiaadress"
+
+msgid "Keep this field empty if standard path should be used."
+msgstr "Hoia see väli tühjana, et kasutada standardset rada."
+
+msgid "Start typing..."
+msgstr "Alusta kirjutamist..."
+
+msgid "limit when this page is visible in the menu"
+msgstr ""
+
+msgid "X Frame Options"
+msgstr ""
+
+msgid "Whether this page can be embedded in other pages or websites."
+msgstr ""
+
+msgid "URL options"
+msgstr ""
+
+msgid "Menu options"
+msgstr ""
+
+msgid "Headers"
+msgstr ""
+
+msgid "Application"
+msgstr "Rakendus"
+
+msgid "Hook application to this page."
+msgstr "Haagi rakendus selle lehekülje külge."
+
+msgid "Application configurations"
+msgstr "Rakenduse seaded"
+
+msgid "A page with this reverse URL id exists already."
+msgstr "Sellise pööratud identifikaatoriga lehekülg on juba olemas."
+
+msgid "Invalid application config value"
+msgstr ""
+
+msgid "An application instance using this configuration already exists."
+msgstr ""
+
+msgid "An application instance with this name already exists."
+msgstr ""
+
+msgid "You can't move the home page inside another page"
+msgstr ""
+
+msgid ""
+"You cannot have two pages with the same slug at the same page level. Please "
+"alter the slug of one of the pages before trying to move again."
+msgstr ""
+
+msgid "Yes"
+msgstr "Jah"
+
+msgid "No"
+msgstr "Ei"
+
+msgid "user"
+msgstr "kasutaja"
+
+msgid "can_view"
+msgstr ""
+
+msgid "Add"
+msgstr "Lisa"
+
+msgid "Change"
+msgstr "Muuda"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid ""
+"Users can't create a page without permissions to change the created page. "
+"Edit permissions required."
+msgstr ""
+
+msgid ""
+"Users can't delete a page without permissions to change the page. Edit "
+"permissions required."
+msgstr ""
+
+msgid ""
+"Users can't set page permissions without permissions to change a page. Edit "
+"permissions required."
+msgstr ""
+
+msgid ""
+"Users can't delete page permissions without permissions to change a page. "
+"Edit permissions required."
+msgstr ""
+
+msgid ""
+"Users can't create page permissions without permissions to change the "
+"created permission. Edit permissions required."
+msgstr ""
+
+msgid ""
+"Users can't delete page permissions without permissions to change "
+"permissions. Edit permissions required."
+msgstr ""
+
+#, python-format
+msgid "Invalid plugin type '%s'"
+msgstr ""
+
+msgid "Language must be set to a supported language!"
+msgstr ""
+
+msgid "Parent plugin language must be same as language!"
+msgstr ""
+
+msgid "Parent plugin placeholder must be same as placeholder!"
+msgstr ""
+
+#, python-format
+msgid "Plugin position must be greater than %(position)d"
+msgstr ""
+
+msgid "Translations"
+msgstr ""
+
+msgid "Advanced Settings"
+msgstr "Muud seadistused"
+
+msgid "Change Permissions"
+msgstr "Muuda õiguseid"
+
+msgid "The page is not eligible to be home."
+msgstr ""
+
+#, python-format
+msgid "%(name)s object with primary key %(key)r does not exist."
+msgstr "Objekti %(name)s primaarvõtmega %(key)r ei ole olemas."
+
+msgid "error"
+msgstr ""
+
+msgid ""
+"Error! You don't have permissions to move this page. Please reload the page"
+msgstr ""
+
+msgid "Error! You don't have permissions to copy this page."
+msgstr ""
+
+msgid ""
+"Error! The page you're pasting is not translated in any of the languages "
+"configured by the target site."
+msgstr ""
+
+msgid "You do not have permission to edit this page"
+msgstr ""
+
+msgid ""
+"(to change it, first unpublish the currently published version of this page)"
+msgstr ""
+
+msgid "Add Translation"
+msgstr "Lisa tõlge"
+
+msgid "Add Page Copy"
+msgstr "Lisa lehe koopia"
+
+msgid "New sub page"
+msgstr "Uus alamlehekülg"
+
+msgid "New page"
+msgstr "Uus lehekülg"
+
+msgid ""
+"You do not have permission to access this site. Please contact your "
+"administrator."
+msgstr ""
+
+msgid "Database error"
+msgstr "Andmebaasi viga"
+
+msgid "Template not valid"
+msgstr "Mall ei ole korrektne"
+
+msgid "Placeholder selection not valid"
+msgstr ""
+
+msgid "The template was successfully changed"
+msgstr ""
+
+#, python-format
+msgid "Placeholder '%s' does not exist in target language"
+msgstr ""
+
+msgid "You do not have permission to copy these plugins."
+msgstr ""
+
+msgid "You do not have permission to delete this page"
+msgstr ""
+
+#, python-format
+msgid "Title and plugins with language %(language)s was deleted"
+msgstr "Pealkiri ja pluginad %(language)s keeles kustutatud"
+
+msgid "Public content"
+msgstr ""
+
+msgid "Empty"
+msgstr "Tühi"
+
+msgid "Create Content"
+msgstr ""
+
+msgid "View restriction"
+msgstr "Vaata piirangut"
+
+msgid "View restrictions"
+msgstr "Vaata piiranguid"
+
+#, python-format
+msgid "Field %s not found"
+msgstr "Välja %s ei leitud"
+
+msgid "You do not have permission to edit this item"
+msgstr ""
+
+msgid "You do not have permission to add a plugin"
+msgstr ""
+
+msgid "You do not have permission to copy this placeholder."
+msgstr ""
+
+msgid "Plugin not found"
+msgstr "Pluginat ei leitud"
+
+msgid "You do not have permission to edit this plugin"
+msgstr ""
+
+msgid "You have no permission to paste this plugin"
+msgstr ""
+
+msgid "You have no permission to paste this placeholder"
+msgstr ""
+
+msgid "You have no permission to move this plugin"
+msgstr ""
+
+msgid "You have no permission to cut this plugin"
+msgstr ""
+
+msgid "You do not have permission to delete this plugin"
+msgstr ""
+
+#, python-format
+msgid "The %(name)s plugin \"%(obj)s\" was deleted successfully."
+msgstr ""
+
+#, python-format
+msgid "Cannot delete %(name)s"
+msgstr ""
+
+msgid "Are you sure?"
+msgstr "Kas oled kindel?"
+
+msgid "You do not have permission to clear this placeholder"
+msgstr ""
+
+#, python-format
+msgid "The placeholder \"%(obj)s\" was cleared successfully."
+msgstr ""
+
+msgid "placeholder"
+msgstr "kohahoidja"
+
+msgid "Page permissions"
+msgstr "Lehekülje õigused"
+
+msgid "User & Group permissions"
+msgstr ""
+
+msgid "Page permissions management"
+msgstr "Lehekülje õiguste haldamine"
+
+msgid "Actions"
+msgstr ""
+
+msgid "Empty content"
+msgstr ""
+
+msgid "You do not have permission to change this content."
+msgstr ""
+
+#, python-format
+msgid "%(object_name)s Properties"
+msgstr ""
+
+#, python-format
+msgid "Add new %(object_name)s"
+msgstr ""
+
+msgid "Add content"
+msgstr ""
+
+msgid ""
+"Content for the current language has been changed. Click \"Cancel\" to "
+"return to the form and save changes. Click \"OK\" to discard changes."
+msgstr ""
+
+#, python-format
+msgid "Add %(language)s content"
+msgstr ""
+
+msgid "Preview"
+msgstr "Eelvaade"
+
+msgid "Settings"
+msgstr ""
+
+#, python-format
+msgid ""
+"Invalid language %(value)s. This form cannot be processed. Try changing "
+"languages."
+msgstr ""
+
+msgid "<unspecified>"
+msgstr ""
+
+#, python-format
+msgid "No registered apphook \"%r\" found"
+msgstr ""
+
+msgid "django CMS"
+msgstr "django CMS"
+
+msgid "Placeholder"
+msgstr "Kohahoidja"
+
+msgid "Getting started developer guide"
+msgstr ""
+
+msgid "Documentation"
+msgstr "Dokumentatsioon"
+
+msgid "User guide"
+msgstr ""
+
+msgid "Discord community"
+msgstr ""
+
+msgid "What's new"
+msgstr ""
+
+msgid "Create"
+msgstr "Loo"
+
+msgid "Edit"
+msgstr "Muuda"
+
+msgid "Structure"
+msgstr "Struktuur"
+
+msgid "Content"
+msgstr "Sisu"
+
+msgid "Help"
+msgstr ""
+
+msgid "Sites"
+msgstr "Saidid"
+
+msgid "Admin Sites"
+msgstr "Admini saidid"
+
+msgid "Administration"
+msgstr "Administreerimine"
+
+msgid "User settings"
+msgstr "asutaja seaded"
+
+msgid "Clipboard..."
+msgstr "Lõikelaud..."
+
+msgid "Clear clipboard"
+msgstr "Tühjenda lõikelaud"
+
+msgid "Disable toolbar"
+msgstr ""
+
+msgid "Shortcuts..."
+msgstr "Otseteed..."
+
+msgid "Users"
+msgstr "Kasutajad"
+
+#, python-format
+msgid "Logout %s"
+msgstr "Logi välja %s"
+
+msgid "Logout"
+msgstr "Logi välja"
+
+msgid "Language"
+msgstr "Keel"
+
+msgid "Delete Translation"
+msgstr "Kustuta tõlge"
+
+msgid "Copy all plugins"
+msgstr "Kopeeri kõik pluginad"
+
+#, python-format
+msgid "from %s"
+msgstr ""
+
+#, python-format
+msgid "Are you sure you want to copy all plugins from %s?"
+msgstr ""
+
+msgid "Pages"
+msgstr "Leheküljed"
+
+msgid "Page"
+msgstr "Lehekülg"
+
+msgid "Create Page"
+msgstr "Loo leht"
+
+msgid "New Page"
+msgstr "Uus lehekülg"
+
+msgid "New Sub Page"
+msgstr "Uus alamlehekülg"
+
+msgid "Duplicate this Page"
+msgstr "Tee sellest lehest koopia"
+
+msgid "Page settings"
+msgstr "Lehekülje seadistused"
+
+msgid "Advanced settings"
+msgstr "Lisaseaded"
+
+msgid "Templates"
+msgstr "Mallid"
+
+msgid "Placeholders"
+msgstr ""
+
+msgid "Hide in navigation"
+msgstr "Peida menüüs"
+
+msgid "Display in navigation"
+msgstr "Näita menüüs"
+
+msgid "Delete page"
+msgstr "Kustuta lehekülg"
+
+msgid "Create a new page next to the current page."
+msgstr ""
+
+msgid "Create a page below the current page."
+msgstr ""
+
+msgid "Select a valid site"
+msgstr "Vali korrektne sait"
+
+msgid "Select a valid page"
+msgstr "Vali korrektne lehekülg"
+
+#, python-format
+msgid ""
+"Page %(conflict_page)s has the same url '%(url)s' as current page "
+"\"%(instance)s\"."
+msgstr ""
+
+#, python-format
+msgid "Page %(conflict_page)s has the same url '%(url)s' as current page."
+msgstr ""
+
+msgid "Add another"
+msgstr ""
+
+msgid ""
+"Optional. If supplied, will be automatically added within a new text plugin."
+msgstr ""
+
+msgid "Provide a title for the new page."
+msgstr ""
+
+msgid "Leave empty for automatic slug, or override as required."
+msgstr ""
+
+msgid "Cannot automatically create slug. Please provide one manually."
+msgstr ""
+
+msgid "Please provide a valid slug."
+msgstr ""
+
+msgid "You don't have the permissions required to add a page."
+msgstr ""
+
+msgid "ID"
+msgstr "ID"
+
+msgid "position"
+msgstr "asukoht"
+
+msgid "language"
+msgstr "keel"
+
+msgid "plugin_name"
+msgstr ""
+
+msgid "creation date"
+msgstr "loomise aeg"
+
+msgid "can edit"
+msgstr "võib muuta"
+
+msgid "can add"
+msgstr "võib lisada"
+
+msgid "can delete"
+msgstr "võib kustutada"
+
+msgid "can change advanced settings"
+msgstr "saab muuta lisaseadeid"
+
+msgid "can publish"
+msgstr "saab avaldada"
+
+msgid "can change permissions"
+msgstr "saab muuta õiguseid"
+
+msgid "can move"
+msgstr "saab liigutada"
+
+msgid "view restricted"
+msgstr ""
+
+msgid "can recover pages"
+msgstr "saab lehekülgi taastada"
+
+msgid "group"
+msgstr "grupp"
+
+msgid "sites"
+msgstr "saiti"
+
+msgid "created by"
+msgstr "lisas"
+
+msgid "changed by"
+msgstr "muutis"
+
+msgid "publication date"
+msgstr "avaldamise aeg"
+
+msgid "publication end date"
+msgstr "avaldamise lõpetamise aeg"
+
+msgid "in navigation"
+msgstr "menüüs"
+
+msgid "soft root"
+msgstr ""
+
+msgid "id"
+msgstr "id"
+
+msgid "attached menu"
+msgstr ""
+
+msgid "template"
+msgstr "mall"
+
+msgid "login required"
+msgstr "sisselogimine on nõutud"
+
+msgid "menu visibility"
+msgstr "menüü nähtavus"
+
+msgid "application"
+msgstr "rakendus"
+
+msgid "application instance name"
+msgstr ""
+
+msgid "site"
+msgstr "ait"
+
+msgid "Grant on"
+msgstr ""
+
+msgid "page"
+msgstr "lehekülg"
+
+msgid "no limit set"
+msgstr ""
+
+msgid "for logged in users only"
+msgstr "ainult sisselogitud kasutajatele"
+
+msgid "for anonymous users only"
+msgstr "ainult anonüümsetele kasutajatele"
+
+msgid "Inherit from parent page"
+msgstr ""
+
+msgid "Deny"
+msgstr "Keela"
+
+msgid "Only this website"
+msgstr "Ainult see veebisait"
+
+msgid "Allow"
+msgstr "Luba"
+
+msgid "title"
+msgstr "pealkiri"
+
+msgid "The default title"
+msgstr "Vaikimisi pealkiri"
+
+msgid "Page Title"
+msgstr "Lehekülje pealkiri"
+
+msgid ""
+"Overwrites what is displayed at the top of your browser or in bookmarks"
+msgstr "Kirjuta üle veebilehitseja ülaosas või järjehoidjas kuvatav"
+
+msgid "Menu Title"
+msgstr "Pealkiri menüüs"
+
+msgid "Overwrite what is displayed in the menu"
+msgstr "Kirjuta üle menüüs kuvatav"
+
+msgid "Description meta tag"
+msgstr ""
+
+msgid "A description of the page used by search engines."
+msgstr ""
+"Komade eraldatud nimekiri märksõnadest mida mõnikord kasutavad "
+"otsingumootorid."
+
+msgid "redirect"
+msgstr "ümbersuunamine"
+
+msgid "Redirects to this URL."
+msgstr "Suuna ümber sellele internetiaadressile."
+
+msgid "All ancestors will not be displayed in the navigation"
+msgstr ""
+
+msgid "The template used to render the content."
+msgstr ""
+
+msgid "page content"
+msgstr ""
+
+msgid "page contents"
+msgstr ""
+
+msgid "default"
+msgstr "vaikeväärtus"
+
+msgid ""
+"A unique identifier that is used with the page_url templatetag for linking "
+"to this page"
+msgstr ""
+
+msgid "Mark this page as a page type"
+msgstr ""
+
+msgid "pages"
+msgstr "leheküge"
+
+msgid "No available title"
+msgstr ""
+
+msgid "slug"
+msgstr ""
+
+msgid "Path"
+msgstr "Asukoht"
+
+msgid "Current page"
+msgstr "Praegune lehekülg"
+
+msgid "Page children (immediate)"
+msgstr ""
+
+msgid "Page and children (immediate)"
+msgstr ""
+
+msgid "Page descendants"
+msgstr ""
+
+msgid "Page and descendants"
+msgstr ""
+
+msgid "on page level"
+msgstr "lehekülje tasemel"
+
+msgid "frontend view restriction"
+msgstr ""
+
+msgid "Please select user or group."
+msgstr ""
+
+msgid ""
+"Users can't publish a page without permissions to change the page. Edit "
+"permissions required."
+msgstr ""
+
+msgid ""
+"Users can't change page advanced settings without permissions to change the "
+"page. Edit permissions required."
+msgstr ""
+
+msgid ""
+"Users can't change page permissions without permissions to change the page. "
+"Edit permissions required."
+msgstr ""
+
+msgid ""
+"Users can't move a page without permissions to change the page. Edit "
+"permissions required."
+msgstr ""
+
+msgid "can recover any deleted page"
+msgstr "saab taastada iga kustutatud lehekülje"
+
+msgid "If none selected, user haves granted permissions to all sites."
+msgstr ""
+
+msgid "Page global permission"
+msgstr "Lehekülje üldised õigused"
+
+msgid "Pages global permissions"
+msgstr "Lehekülgede üldised õigused"
+
+msgid "Page permission"
+msgstr "Lehekülje õigused"
+
+msgid ""
+"Add page permission requires also access to children, or descendants, "
+"otherwise added page can't be changed by its creator."
+msgstr ""
+"Õigus lehekülge lisada nõuab ka ligipääsu alamlehekülgede, vastasel juhul ei"
+" saa lehekülje looja lisatud lehekülge muuta."
+
+msgid "User (page)"
+msgstr "Kasutaja (lehekülg)"
+
+msgid "Users (page)"
+msgstr "Kasutajad (lehekülg)"
+
+msgid "User group (page)"
+msgstr "Kasutajate grupp (lehekülg)"
+
+msgid "User groups (page)"
+msgstr "Kasutajate grupid (lehekülg)"
+
+msgid "slot"
+msgstr ""
+
+msgid "width"
+msgstr "laius"
+
+msgid "Edit object"
+msgstr ""
+
+msgid "This is an external placeholder"
+msgstr ""
+
+msgid "plugin"
+msgstr ""
+
+msgid "plugins"
+msgstr ""
+
+msgid "<Empty>"
+msgstr "<Empty>"
+
+msgid "The language for the admin interface and toolbar"
+msgstr ""
+
+msgid "user setting"
+msgstr "kasutaja seaded"
+
+msgid "user settings"
+msgstr "kasutaja seaded"
+
+msgid "Advanced options"
+msgstr "Täpsemad valikud"
+
+msgid "Generic"
+msgstr "Üldine"
+
+#, python-format
+msgid "The %(name)s \"%(obj)s\" was changed successfully."
+msgstr ""
+
+msgid "There are no further settings for this plugin. Please press save."
+msgstr ""
+
+msgid "Moved"
+msgstr ""
+
+msgid "Changed"
+msgstr "Muudetud"
+
+msgid "Deleted"
+msgstr ""
+
+msgid "Added Page Translation"
+msgstr ""
+
+msgid "Changed Page Translation"
+msgstr ""
+
+msgid "Deleted Page Translation"
+msgstr ""
+
+msgid "Added Plugin"
+msgstr ""
+
+msgid "Changed Plugin"
+msgstr ""
+
+msgid "Moved Plugin"
+msgstr ""
+
+msgid "Deleted Plugin"
+msgstr ""
+
+msgid "Cut Plugin"
+msgstr ""
+
+msgid "Paste Plugin"
+msgstr ""
+
+msgid "Paste to Placeholder"
+msgstr ""
+
+msgid "Added plugins to placeholder from clipboard"
+msgstr ""
+
+msgid "Cleared Placeholder"
+msgstr ""
+
+msgid "Save"
+msgstr "Salvesta"
+
+msgid "Some fields cannot be changed since they are read-only content."
+msgstr ""
+
+#, python-format
+msgid "Log in to administration <a href=\"%(login_url)s\">here</a>."
+msgstr ""
+
+#, python-format
+msgid "Login url: %(login_url)s"
+msgstr ""
+
+msgid "Username:"
+msgstr "Kasutajanimi:"
+
+msgid "Password:"
+msgstr "Parool:"
+
+msgid "Add a page"
+msgstr "Lisa leht"
+
+msgid "Change a page"
+msgstr "Muuda lehte"
+
+msgid "Home"
+msgstr "Avahelt"
+
+msgid "View on site"
+msgstr "Vaata saidil"
+
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] "Palun paranda allolev viga."
+msgstr[1] "Palun paranda allolevad vead."
+
+msgid "All permissions"
+msgstr "Kõik õigused"
+
+msgid "Loading..."
+msgstr "Laadimine..."
+
+msgid "Save and continue editing"
+msgstr "Salvesta ja jätka muutmist"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+
+msgid "Yes, I’m sure"
+msgstr ""
+
+msgid "No, take me back"
+msgstr ""
+
+msgid "Summary"
+msgstr ""
+
+msgid "User"
+msgstr "Kasutaja"
+
+msgid "Group"
+msgstr "Grupp"
+
+msgid "Can edit"
+msgstr "Võib muuta"
+
+msgid "Can add"
+msgstr "Võib lisada"
+
+msgid "Can delete"
+msgstr "Võib kustutada"
+
+msgid "Can publish"
+msgstr "Saab avaldada"
+
+msgid "Can change permissions"
+msgstr "Saab muuta õiguseid"
+
+msgid "Can move"
+msgstr "Saab liigutada"
+
+msgid "Can view"
+msgstr "Võib vaadata"
+
+msgid "(global)"
+msgstr "(üldine)"
+
+msgid "(current)"
+msgstr "(praegune)"
+
+msgid "Page doesn't inherit any permissions."
+msgstr "Lehekülg ei päri ühtki õigust."
+
+msgid "Edit model"
+msgstr "Muuda mudelit"
+
+msgid "Save as new"
+msgstr "Salvesta uuena"
+
+msgid "Save and add another"
+msgstr "Salvesta ja lisa uus"
+
+msgid "Copy"
+msgstr "Kopeeri"
+
+msgid "Cut"
+msgstr "Lõika"
+
+msgid "Paste"
+msgstr "Aseta"
+
+msgid "Set as home"
+msgstr ""
+
+msgid "is restricted"
+msgstr "on piiratud"
+
+msgid "last change by"
+msgstr "viimati muutis"
+
+msgid "last change on"
+msgstr ""
+
+msgid "meta"
+msgstr "meta"
+
+msgid "List of pages"
+msgstr "Lehekülgede loend"
+
+msgid "Search"
+msgstr "Otsi"
+
+msgid "Page Tree"
+msgstr "Lehekülgede puu"
+
+msgid "Reset filter"
+msgstr "Nulli filter"
+
+#, python-format
+msgid ""
+"\n"
+"                                                Restore deleted %(name)s\n"
+"                                            "
+msgstr ""
+
+msgid "Main Navigation"
+msgstr "Peamenüü"
+
+msgid "Options"
+msgstr "Valikud"
+
+msgid "Successfully moved"
+msgstr "Edukalt liigutatud"
+
+msgid "Changes within the tree might require a refresh."
+msgstr ""
+
+msgid "Error:"
+msgstr "Viga:"
+
+msgid ""
+"This page cannot be copied because an application is attached to it. See the"
+" Page's Advanced settings to manage apphooks."
+msgstr ""
+
+msgid "Are you sure you want to § this page?"
+msgstr "Kas oled kindel, et soovid § selle lehekülje?"
+
+msgid "Reload"
+msgstr "Laadi uuesti"
+
+msgid "New node"
+msgstr ""
+
+msgid "nodes"
+msgstr ""
+
+msgid "View"
+msgstr "Vaata"
+
+msgid "Menu"
+msgstr "Menüü"
+
+#, python-format
+msgid ""
+"\n"
+"                            <em>There is no %(object)s around yet.</em>\n"
+"                            <br>\n"
+"                            <a href=\"%(add_url)s\" class=\"addlink\">Add %(object)s</a> now.\n"
+"                        "
+msgstr ""
+
+msgid "Copy options"
+msgstr "Kopeeri valikud"
+
+msgid "Choose copy options"
+msgstr "Tee kopeerimise valikud"
+
+msgid "Close"
+msgstr "Sulge"
+
+msgid "Legend"
+msgstr "Legend"
+
+msgid "In menu"
+msgstr "Menüüs"
+
+msgid "Not in menu"
+msgstr "Pole menüüs"
+
+msgid "View page"
+msgstr "Vaata lehte"
+
+msgid "Softroot"
+msgstr ""
+
+msgid "Apphook"
+msgstr ""
+
+msgid "Redirect"
+msgstr "Ümbersuunamine"
+
+#, python-format
+msgid "Application: %(apphook)s"
+msgstr ""
+
+msgid "in menu"
+msgstr "menüüs"
+
+msgid "not in menu"
+msgstr "pole menüüs"
+
+msgid "Page settings (SHIFT click for advanced settings)"
+msgstr ""
+
+msgid "Permissions"
+msgstr "Õigused"
+
+msgid "inherited"
+msgstr ""
+
+msgid "This page has no preview!"
+msgstr "Sellel leheküljel pole eelvaadet!"
+
+msgid ""
+"Potentially the attached apphook does not provide content for its root."
+msgstr ""
+
+msgid "It is being redirected to:"
+msgstr ""
+
+msgid "Clipboard"
+msgstr "Lõikelaud"
+
+msgid "Add plugin"
+msgstr "Lisa plugin"
+
+msgid "Copy all"
+msgstr "Kopeeri kõik"
+
+msgid "Copy from"
+msgstr ""
+
+msgid "Empty all"
+msgstr "Tühjenda kõik"
+
+msgid "Filter plugins..."
+msgstr "Filtreeri pluginaid"
+
+msgid "Expand all"
+msgstr "Laienda kõiki"
+
+msgid "Collapse all"
+msgstr "Sulge kõik"
+
+msgid "You cannot add plugins to this plugin."
+msgstr ""
+
+msgid "This plugin cannot be moved or edited outside of its parent"
+msgstr ""
+
+msgid "Clipboard is empty."
+msgstr "Lõikelaud on tühi."
+
+msgid "This plugin does not allow plugins of this type as nested plugins."
+msgstr ""
+
+msgid "This plugin cannot have nested plugins."
+msgstr ""
+
+msgid "Highlight"
+msgstr "Tõsta esile"
+
+msgid "Available plugins"
+msgstr "aadaolevad pluginad"
+
+msgid "Toggle structure"
+msgstr ""
+
+msgid "Login"
+msgstr "Logi sisse"
+
+msgid "Add plugin to"
+msgstr "Lisa plugin"
+
+msgid "More"
+msgstr "Veel"
+
+#, python-format
+msgid ""
+"Development version using django CMS %(cms_version)s, Django "
+"%(django_version)s, Python %(python_version)s"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Loobu"
+
+msgid "The following error occurred:"
+msgstr ""
+
+msgid "Action successful."
+msgstr ""
+
+msgid "Are you sure you want to delete this plugin?"
+msgstr "Kas oled kindel, et soovid selle plugina kustutada?"
+
+msgid "Are you sure you want to publish this page?"
+msgstr ""
+
+msgid "Plugin will be added here"
+msgstr "Plugin lisatakse siia"
+
+msgid "You have unsaved changes."
+msgstr "Sul on salvestamata muudatusi."
+
+msgid "Loading"
+msgstr "Laadimine"
+
+msgid "Are you sure you want to abandon these changes?"
+msgstr ""
+
+msgid ""
+"The form could not be loaded. Please check that the server is running "
+"correctly."
+msgstr ""
+
+msgid "Most used"
+msgstr "Enim kasutatud"
+
+msgid "Shortcuts"
+msgstr "Otseteed"
+
+msgid "The page was changed in the meantime, reloading..."
+msgstr ""
+
+msgid "CMS-wide Shortcuts"
+msgstr ""
+
+msgid "Bring up this help dialog"
+msgstr ""
+
+msgid "Close/cancel"
+msgstr "Sulge/Loobu"
+
+msgid "Toggle structure mode"
+msgstr ""
+
+msgid "Toggle structure mode and highlight hovered-over plugin"
+msgstr ""
+
+msgid "Open \\"
+msgstr ""
+
+msgid "Focus on Toolbar"
+msgstr "Fookus tööriistaribal"
+
+msgid "Focus on placeholders"
+msgstr ""
+
+msgid "Move to next/previous element"
+msgstr ""
+
+msgid "Focus on plugins of placeholder"
+msgstr ""
+
+msgid "Edit plugin"
+msgstr "Muuda pluginat"
+
+msgid "Open actions menu"
+msgstr ""
+
+msgid "Expand/collapse"
+msgstr "Ava/Sulge"
+
+msgid ""
+"<strong>Login failed.</strong> Please check your credentials and try again."
+msgstr ""
+
+msgid "Double-click to edit"
+msgstr ""
+
+msgid "Tap to edit"
+msgstr "Muumiseks vajuta"
+
+msgid "Click to go back"
+msgstr "Tagasi minemiseks kliki"
+
+msgid "Click to go forward"
+msgstr "Edasi minemiseks kliki"
+
+msgid "Minimize"
+msgstr "Minimeeri"
+
+msgid "Maximize"
+msgstr "Makimeeri"
+
+msgid "Placeholder not editable"
+msgstr ""
+
+msgid "Drop a plugin here"
+msgstr "Lohista plugin siia"
+
+msgid "Welcome to your new django CMS installation!"
+msgstr ""
+
+#, python-format
+msgid "Version %(cms_version)s"
+msgstr ""
+
+msgid "Let’s build something great together!"
+msgstr ""
+
+msgid "Please log in"
+msgstr "Palun logi sisse"
+
+msgid ""
+"\n"
+"                <a class=\"js-welcome-add cms-btn cms-btn-action\">Add your first page</a>\n"
+"            "
+msgstr ""
+
+msgid ""
+"\n"
+"                    <h2>Help Funding</h2>\n"
+"                    <p>\n"
+"                        Your funding directly benefits the product, mainly through the\n"
+"                        <a href=\"https://www.django-cms.org/en/fellowship-program/\">django CMS Fellowship Program</a>!\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        A quick way for yourself or your organisation to donate is on\n"
+"                        <a href=\"https://github.com/sponsors/django-cms\">Github Sponsors</a>.\n"
+"                    </p>\n"
+"                "
+msgstr ""
+
+msgid ""
+"\n"
+"                    <h2>Join Us</h2>\n"
+"                    <p>\n"
+"                        The django CMS Association is a non-profit organisation that funds and steers the development of\n"
+"                        django CMS.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        You can <a href=\"https://www.django-cms.org/en/memberships/\">join both as an individual or as an\n"
+"                        organisation</a>.\n"
+"                    </p>\n"
+"                "
+msgstr ""
+
+msgid ""
+"\n"
+"                    <h2>Contribute</h2>\n"
+"                    <ul>\n"
+"                        <li><a href=\"https://www.django-cms.org/en/contribute/\">Contribute code:</a> fix a bug or\n"
+"                            implement a new feature!</li>\n"
+"                        <li><a href=\"https://www.django-cms.org/en/volunteering-opportunities/\">Volunteer:</a>\n"
+"                            We offer fun and efficient team work!</li>\n"
+"                        <li><a href=\"https://www.django-cms.org/en/repositories-plugins/\">Open-source your work:</a>\n"
+"                            Make the ecosystem strong.</li>\n"
+"                    </ul>\n"
+"                "
+msgstr ""
+
+msgid "Installation Notes"
+msgstr "Paigaldamise märkmed"
+
+msgid "Support"
+msgstr "Kasutajatugi"
+
+msgid "Give back"
+msgstr ""
+
+msgid ""
+"\n"
+"                <p class=\"cms-welcome-notes\">If you don't see the django CMS logo at the top, make sure\n"
+"                    you linked the <code>static/cms</code> folder to your\n"
+"                    static files.</p>\n"
+"            "
+msgstr ""
+
+msgid ""
+"\n"
+"                    <p class=\"cms-welcome-notes\">You're seeing this message because you have\n"
+"                        <code>DEBUG = True</code> in your django settings file and\n"
+"                        haven't added any pages yet.\n"
+"                    </p>\n"
+"                "
+msgstr ""
+
+msgid "Welcome to django CMS"
+msgstr "Teretulemast django CMS-i"
+
+msgid "Add Another"
+msgstr "Lisa veel üks"
+
+msgid "Back"
+msgstr "Tagasi"
+
+msgid "Please choose an option from below to proceed to the next step."
+msgstr ""
+
+msgid "Next"
+msgstr "Edasi"
+
+msgid "Select what you would like to create"
+msgstr ""
+
+msgid "Unknown"
+msgstr ""
+
+#, python-format
+msgid "Page not found on %(domain)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"A template tag couldn't find the page with lookup arguments `%(page_lookup)s\n"
+"`. The URL of the request was: http://%(host)s%(path)s"
+msgstr ""
+
+msgid "Two columns"
+msgstr "Kaks veergu"
+
+msgid "Three columns"
+msgstr "Kolm veergu"
+
+msgid "username"
+msgstr "kasutajanimi"
+
+msgid ""
+"Required. 300 characters or fewer. Letters, numbers and @/./+/-/_ characters"
+msgstr ""
+
+msgid "Enter a valid username."
+msgstr "Sisesta korrektne kasutajanimi."
+
+msgid "email address"
+msgstr "e-posti aadress"
+
+msgid "staff status"
+msgstr "personali staatus"
+
+msgid "Designates whether the user can log into this admin site."
+msgstr ""
+
+msgid "active"
+msgstr "aktiivne"
+
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+
+msgid "users"
+msgstr "kasutajad"
+
+msgid "Title Extension"
+msgstr ""
+
+msgid "Page Extension"
+msgstr ""
+
+msgid "object ID"
+msgstr "objekti ID"
+
+msgid "Example1 App"
+msgstr ""
+
+msgid "MultilingualExample1 App"
+msgstr ""
+
+msgid "Example1"
+msgstr "Näidis1"
+
+msgid "Examples"
+msgstr "Näidised"
+
+msgid "Extra Context"
+msgstr ""
+
+msgid "Articles"
+msgstr "Artiklid"
+
+msgid "Sample App"
+msgstr "Näidis rakendus"
+
+msgid "Sample App with config"
+msgstr ""
+
+msgid "Sample App with excluded permissions"
+msgstr ""
+
+msgid "Sample App 2"
+msgstr "Näidis rakendus 2"
+
+msgid "Sample App 3"
+msgstr "Näidis rakendus 2"
+
+msgid "Sample App Without Landing Page"
+msgstr ""
+
+msgid "Namespaced App"
+msgstr ""
+
+msgid "Parent app"
+msgstr "Peamine rakendus"
+
+msgid "Child app"
+msgstr "Alamrakendus"
+
+msgid "Variable urls-menus App"
+msgstr ""
+
+msgid "sample root page"
+msgstr ""
+
+msgid "sample settings page"
+msgstr ""
+
+msgid "sample account page"
+msgstr ""
+
+msgid "sample my profile page"
+msgstr ""
+
+msgid "Static Menu"
+msgstr "Staatiline menüü"
+
+msgid "Static Menu2"
+msgstr "Staatiline menüü 2"
+
+msgid "Static Menu3"
+msgstr "Staatiline menüü 3"
+
+msgid "Static Menu4"
+msgstr "Staatiline menüü"
+
+msgid "Category"
+msgstr "Kategooria"
+
+msgid "Categories"
+msgstr "Kategooriad"
+
+msgid "Add Category"
+msgstr "Lisa kategooria"
+
+msgid "^account/$"
+msgstr "^account/$"
+
+msgid "Change Category"
+msgstr "Muuda kategooria"
+
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr ""
+
+msgid "Inherit the template of the nearest ancestor"
+msgstr ""
+
+msgid "UserSettings"
+msgstr "Kasutaja seaded"
+
+#, python-format
+msgid "Add plugin to placeholder \"%(placeholder_label)s\""
+msgstr ""
+
+#, python-format
+msgid "Add plugin to %(plugin_name)s"
+msgstr ""
+
+msgid "Single placeholder"
+msgstr ""
+
+msgid "Community forum"
+msgstr ""
+
+msgid "Getting started"
+msgstr ""
+
+msgid "Talk to us"
+msgstr ""
+
+msgid "CMS - your user account was created."
+msgstr "CMS - sinu kasutajakonto on loodud."
+
+msgid "CMS - your user account was changed."
+msgstr "CMS - sinu kasutajakontot on muudetud."
+
+#, python-format
+msgid "This placeholder already has the maximum number of plugins (%s)."
+msgstr ""
+
+#, python-format
+msgid ""
+"This placeholder already has the maximum number (%(limit)s) of allowed "
+"%(plugin_name)s plugins."
+msgstr ""
+
+#, python-brace-format
+msgid "Unable to find the specified CMS_REQUEST_IP_RESOLVER module: \"{0}\"."
+msgstr ""
+
+#, python-brace-format
+msgid ""
+"Unable to find the specified CMS_REQUEST_IP_RESOLVER function: \"{0}\" in "
+"module \"{1}\"."
+msgstr ""
+
+#, python-format
+msgid "Create a new %s instance."
+msgstr ""
+
+#, python-format
+msgid "A wizard has already been registered for model: %s"
+msgstr ""

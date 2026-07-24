@@ -1,0 +1,311 @@
+.. _management_commands:
+
+######################
+Command Line Interface
+######################
+
+..  module:: cms.management
+
+.. highlight:: bash
+
+You can invoke the django CMS command line interface using the ``cms`` Django
+command::
+
+    python manage.py cms
+
+
+******************
+Creating a project
+******************
+
+.. _djangocms-command:
+
+``djangocms``
+=============
+
+The ``djangocms`` command creates a new django CMS project directory structure
+for the given project name. It is available as a standalone executable once
+django CMS is installed and can also be invoked as ``python -m cms``::
+
+    djangocms <project_name> [directory]
+
+It clones the official `cms-template
+<https://github.com/django-cms/cms-template>`_ matching your installed django
+CMS version, installs the project requirements, runs the initial migrations,
+creates a superuser and checks the installation.
+
+It accepts the following options:
+
+* ``--interactive``: ask for the project name and for any option not given on
+  the command line. Interactive mode is also entered automatically when no
+  project name is given (unless ``--noinput`` is used).
+* ``--noinput`` / ``--no-input``: do not prompt for any input. A superuser
+  created this way will not be able to log in until given a valid password.
+* ``--username``: the login for the superuser to be created.
+* ``--email``: the email for the superuser to be created.
+* ``--mode {traditional,headless,hybrid}``: select the CMS mode (see
+  :ref:`headless_mode`). Defaults to ``traditional``.
+
+  * ``traditional``: django CMS serves the content as HTML pages.
+  * ``headless``: django CMS serves the content only through an API; the HTML
+    page tree is not published.
+  * ``hybrid``: django CMS serves **both** HTML pages and the content through
+    an API.
+* ``--versioning`` / ``--no-versioning``: add content versioning
+  (`djangocms-versioning <https://github.com/django-cms/djangocms-versioning>`_)
+  to the project. On by default.
+* ``--moderation`` / ``--no-moderation``: add content moderation
+  (`djangocms-moderation <https://github.com/django-cms/djangocms-moderation>`_)
+  to the project. Off by default. Moderation builds on top of versioning, so it
+  cannot be combined with ``--no-versioning``.
+* ``--alias`` / ``--no-alias``: add reusable aliases (`djangocms-alias
+  <https://github.com/django-cms/djangocms-alias>`_) to the project. On by
+  default.
+* ``--stories`` / ``--no-stories``: add the stories component library
+  (`djangocms-stories <https://github.com/django-cms/djangocms-stories>`_) to
+  the project. Off by default.
+* ``--history`` / ``--no-history``: add content history
+  (``djangocms-history>=3``) to the project. Off by default.
+* ``--use-bundled-install-rules``: use the installation rules JSON bundled
+  with the installed django CMS package instead of fetching it from the
+  matching ``cms-template`` branch. Guarantees reproducibility.
+
+Example::
+
+    djangocms my_project --mode headless --no-versioning --stories --history
+
+To be guided through the available options interactively, run the command
+without a project name (or pass ``--interactive``)::
+
+    djangocms
+
+Adding django CMS to an existing project
+----------------------------------------
+
+If you pass ``.`` as the project name, the command does **not** clone the
+project template. Instead it adds django CMS to the existing Django project in
+the current directory (see :ref:`add_to_existing_project` for a step-by-step
+guide)::
+
+    djangocms . --mode hybrid --no-versioning
+
+The project's settings module is read from ``manage.py``, and the following
+files are updated:
+
+* the settings module (``DJANGO_SETTINGS_MODULE``): the django CMS apps are
+  added to ``INSTALLED_APPS`` — the core apps plus those selected by the flags
+  (for example ``--versioning`` adds ``djangocms_versioning``). In ``headless``
+  and ``hybrid`` mode the REST API apps ``djangocms_rest`` and
+  ``rest_framework`` (Django REST framework) are added as well. The django CMS
+  middleware (including Django's ``LocaleMiddleware``) and template context
+  processors are added, and a small block of django CMS settings (such as
+  ``LANGUAGES``) is appended if missing. In ``traditional`` and ``hybrid`` mode
+  this includes ``CMS_TEMPLATES``; in ``headless`` mode it includes
+  ``CMS_PLACEHOLDERS`` instead (see :ref:`headless_mode`);
+* the project's ``urls.py`` (resolved from ``ROOT_URLCONF``): the django CMS
+  and/or REST API url patterns are added according to the selected ``--mode``.
+
+In ``traditional`` and ``hybrid`` mode, if the project has no template directory
+yet, a ``templates`` directory is created, registered in ``TEMPLATES['DIRS']``
+and seeded with a minimal base template. In ``headless`` mode no template
+directory is created.
+
+Finally, the command lists the required packages and asks whether to install
+them. If you agree (or run with ``--noinput``), it installs them, runs the
+database migrations and then ``cms check`` to validate the installation. If you
+decline, it prints the commands to run later instead. Existing entries are never
+duplicated, so it is safe to run again.
+
+To preview the changes without touching anything, add ``--dry-run``. The command
+then prints a unified diff of every edit it would make to your settings and
+``urls.py`` (and a new-file diff for any template it would create), and lists the
+packages it would install — but writes nothing and installs nothing::
+
+    djangocms . --dry-run
+
+``--dry-run`` only applies when adding django CMS to an existing project; it is
+not available when creating a new project from the template.
+
+Unlike when creating a new project, no superuser is created (the ``--username``
+and ``--email`` options have no effect); use your project's existing accounts
+or run ``python -m manage createsuperuser``.
+
+The exact apps, middleware, context processors, settings and url patterns to add
+— and the conditions under which each applies (based on ``--mode`` and the
+feature flags) — are described by a JSON rules file. Like the project template,
+it is fetched from the `cms-template <https://github.com/django-cms/cms-template>`_
+repository (the branch matching your installed django CMS version); a copy
+bundled with django CMS is used as an offline fallback.
+
+.. note::
+
+    The ``--stories``, ``--history``, ``--mode``, ``--versioning``,
+    ``--moderation`` and ``--alias`` options are evaluated by the project
+    template. They require
+    version 5.1 or later of the `cms-template
+    <https://github.com/django-cms/cms-template>`_ to support them.
+
+
+**********************
+Informational commands
+**********************
+
+.. _cms-list-command:
+
+``cms list``
+============
+
+The ``list`` command is used to display information about your installation.
+
+It has two sub-commands:
+
+* ``cms list plugins`` lists all plugins that are used in your project.
+* ``cms list apphooks`` lists all apphooks that are used in your project.
+
+``cms list plugins`` will issue warnings when it finds orphaned plugins (see
+``cms delete-orphaned-plugins`` below).
+
+
+.. _cms-check-command:
+
+``cms check``
+=============
+
+Checks your configuration and environment.
+
+
+**************************************
+Plugin and apphook management commands
+**************************************
+
+.. _cms-delete-orphaned-plugins-command:
+
+``cms delete-orphaned-plugins``
+===============================
+
+.. warning::
+
+    The ``delete-orphaned-plugins`` command **permanently deletes** data from
+    your database. You should make a backup of your database before using it!
+
+Identifies and deletes orphaned plugins.
+
+Orphaned plugins are ones that exist in the CMSPlugins table, but:
+
+* have a ``plugin_type`` that is no longer even installed
+* have no corresponding saved instance in that particular plugin type's table
+
+Such plugins will cause problems when trying to use operations that need to copy
+pages (and therefore plugins), which includes ``cms moderator on`` as well as page
+copy operations in the admin.
+
+It is recommended to run ``cms list plugins`` periodically, and ``cms
+delete-orphaned-plugins`` when required.
+
+
+``cms uninstall``
+=================
+
+The ``uninstall`` subcommand can be used to make uninstalling a CMS
+plugin or an apphook easier.
+
+It has two sub-commands:
+
+* ``cms uninstall plugins <plugin name> [<plugin name 2> [...]]`` uninstalls
+  one or several plugins by **removing** them from all pages where they are
+  used. Note that the plugin name should be the name of the class that is
+  registered in the django CMS. If you are unsure about the plugin name, use
+  the :ref:`cms-list-command` to see a list of installed plugins.
+* ``cms uninstall apphooks <apphook name> [<apphook name 2> [...]]`` uninstalls
+  one or several apphooks by **removing** them from all pages where they are
+  used. Note that the apphook name should be the name of the class that is
+  registered in the django CMS. If you are unsure about the apphook name, use
+  the :ref:`cms-list-command` to see a list of installed apphooks.
+
+.. warning::
+
+    The uninstall commands **permanently delete** data from your database.
+    You should make a backup of your database before using them!
+
+
+.. _cms-copy-command:
+
+``cms copy``
+============
+
+The ``copy`` command is used to copy content from one language or site to another.
+
+It has two sub-commands:
+
+* ``cms copy lang`` copy content to a given language.
+* ``cms copy site`` copy pages and content to a given site.
+
+.. _cms-copy-lang-command:
+
+``cms copy lang``
+=================
+
+The ``copy lang`` subcommand can be used to copy content (titles and plugins)
+from one language to another.
+By default the subcommand copy content from the current site
+(e.g. the value of ``SITE_ID``) and only if the target
+placeholder has no content for the specified language; using the defined
+options you can change this.
+
+You must provide two arguments:
+
+* ``--from-lang``: the language to copy the content from;
+* ``--to-lang``: the language to copy the content to.
+
+It accepts the following options
+
+* ``--force``: set to copy content even if a placeholder already has content;
+  if set, copied content will be appended to the original one;
+* ``--site``: specify a SITE_ID to operate on sites different from the current one;
+* ``--verbosity``: set for more verbose output.
+* ``--skip-content``: if set, content is not copied, and the command will only
+  create titles in the given language.
+
+Example::
+
+    cms copy lang --from-lang=en --to-lang=de --force --site=2 --verbosity=2
+
+.. _cms-copy-site-command:
+
+``cms copy site``
+=================
+
+The ``copy site`` subcommand can be used to copy content (pages and plugins)
+from one site to another.
+The subcommand copy content from the ``from-site`` to ``to-site``; please note
+that static placeholders are copied as they are shared across sites.
+The whole source tree is copied, in the root of the target website.
+Existing pages on the target website are not modified.
+
+You must provide two arguments:
+
+* ``--from-site``: the site to copy the content from;
+* ``--to-site``: the site to copy the content to.
+
+Example::
+
+    cms copy site --from-site=1 --to-site=2
+
+
+**********************
+Maintenance and repair
+**********************
+
+.. _fix-tree:
+
+``fix-tree``
+============
+
+Occasionally, the page tree can become corrupted. Typical symptoms include problems
+when trying to copy or delete pages.
+
+This command will fix small corruptions by rebuilding the tree.
+
+.. versionadded:: 4.0
+
+    Since django CMS Version 4 this command does not affect the plugin tree.

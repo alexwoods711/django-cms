@@ -1,0 +1,1751 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Prasasto Adi <prasastoadi@gmail.com>, 2026
+# Fabian Braun <fsbraun@gmx.de>, 2026
+# Jonas Obrist <ojiidotch@gmail.com>, 2011
+msgid ""
+msgstr ""
+"Project-Id-Version: django-cms\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-26 20:08+0000\n"
+"PO-Revision-Date: 2022-12-12 10:32+0000\n"
+"Last-Translator: Fabian Braun <fsbraun@gmx.de>, 2026\n"
+"Language-Team: Indonesian (https://app.transifex.com/divio/teams/58664/id/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "All"
+msgstr "Semua"
+
+msgid "Copy permissions"
+msgstr "Izin menyalin"
+
+msgid "Slug"
+msgstr "Slug"
+
+msgid "The part of the title that is used in the URL"
+msgstr "Bagian dari judul yang digunakan di dalam URL"
+
+msgid "Page type"
+msgstr "Tipe halaman"
+
+msgid "Page Types"
+msgstr "Tipe Halaman"
+
+msgid "Overwrite URL"
+msgstr "Mengganti URL"
+
+msgid "Keep this field empty if standard path should be used."
+msgstr "Biarkan kolom ini kosong jika path standar harus digunakan."
+
+msgid "Start typing..."
+msgstr "Mulai mengetik..."
+
+msgid "limit when this page is visible in the menu"
+msgstr "batasi kapan halaman ini terlihat di menu"
+
+msgid "X Frame Options"
+msgstr "Opsi X Frame"
+
+msgid "Whether this page can be embedded in other pages or websites."
+msgstr "Apakah halaman ini dapat disematkan di halaman atau situs web lain."
+
+msgid "URL options"
+msgstr "Opsi URL"
+
+msgid "Menu options"
+msgstr "Opsi Menu"
+
+msgid "Headers"
+msgstr "Header"
+
+msgid "Application"
+msgstr "Aplikasi"
+
+msgid "Hook application to this page."
+msgstr "Hubungkan aplikasi ke halaman ini."
+
+msgid "Application configurations"
+msgstr "Konfigurasi aplikasi"
+
+msgid "A page with this reverse URL id exists already."
+msgstr "Halaman dengan id reverse URL ini sudah ada."
+
+msgid "Invalid application config value"
+msgstr "Nilai konfigurasi aplikasi tidak valid"
+
+msgid "An application instance using this configuration already exists."
+msgstr "Instans aplikasi yang menggunakan konfigurasi ini sudah ada."
+
+msgid "An application instance with this name already exists."
+msgstr "Instans aplikasi dengan nama ini sudah ada."
+
+msgid "You can't move the home page inside another page"
+msgstr "Anda tidak dapat memindahkan halaman beranda ke dalam halaman lain"
+
+msgid ""
+"You cannot have two pages with the same slug at the same page level. Please "
+"alter the slug of one of the pages before trying to move again."
+msgstr ""
+"Anda tidak dapat memiliki dua halaman dengan slug yang sama pada tingkat "
+"halaman yang sama. Harap ubah slug salah satu halaman sebelum mencoba "
+"memindahkan lagi."
+
+msgid "Yes"
+msgstr "Ya"
+
+msgid "No"
+msgstr "Tidak"
+
+msgid "user"
+msgstr "pengguna"
+
+msgid "can_view"
+msgstr "dapat melihat"
+
+msgid "Add"
+msgstr "Tambah"
+
+msgid "Change"
+msgstr "Ubah"
+
+msgid "Delete"
+msgstr "Hapus"
+
+msgid ""
+"Users can't create a page without permissions to change the created page. "
+"Edit permissions required."
+msgstr ""
+"Pengguna tidak dapat membuat halaman tanpa izin untuk mengubah halaman yang "
+"dibuat. Diperlukan penyuntingan izin."
+
+msgid ""
+"Users can't delete a page without permissions to change the page. Edit "
+"permissions required."
+msgstr ""
+"Pengguna tidak dapat menghapus halaman tanpa izin untuk mengubah halaman. "
+"Diperlukan penyuntingan izin."
+
+msgid ""
+"Users can't set page permissions without permissions to change a page. Edit "
+"permissions required."
+msgstr ""
+"Pengguna tidak dapat mengatur perizinan halaman tanpa izin untuk mengubah "
+"halaman. Diperlukan penyuntingan izin."
+
+msgid ""
+"Users can't delete page permissions without permissions to change a page. "
+"Edit permissions required."
+msgstr ""
+"Pengguna tidak dapat menghapus perizinan halaman tanpa izin untuk mengubah "
+"halaman. Diperlukan penyuntingan izin."
+
+msgid ""
+"Users can't create page permissions without permissions to change the "
+"created permission. Edit permissions required."
+msgstr ""
+"Pengguna tidak dapat membuat perizinan halaman tanpa izin untuk mengubah "
+"izin yang dibuat. Diperlukan penyuntingan izin."
+
+msgid ""
+"Users can't delete page permissions without permissions to change "
+"permissions. Edit permissions required."
+msgstr ""
+"Pengguna tidak dapat menghapus perizinan halaman tanpa izin untuk mengubah "
+"perizinan. Diperlukan penyuntingan izin."
+
+#, python-format
+msgid "Invalid plugin type '%s'"
+msgstr "Tipe plugin '%s' tidak valid"
+
+msgid "Language must be set to a supported language!"
+msgstr "Bahasa harus diatur ke bahasa yang didukung!"
+
+msgid "Parent plugin language must be same as language!"
+msgstr "Bahasa plugin induk harus sama dengan bahasa!"
+
+msgid "Parent plugin placeholder must be same as placeholder!"
+msgstr "Placeholder plugin induk harus sama dengan placeholder!"
+
+#, python-format
+msgid "Plugin position must be greater than %(position)d"
+msgstr "Posisi plugin harus lebih besar dari %(position)d"
+
+msgid "Translations"
+msgstr ""
+
+msgid "Advanced Settings"
+msgstr "Pengaturan Lanjutan"
+
+msgid "Change Permissions"
+msgstr "Ubah Perizinan"
+
+msgid "The page is not eligible to be home."
+msgstr "Halaman ini tidak memenuhi syarat untuk menjadi beranda."
+
+#, python-format
+msgid "%(name)s object with primary key %(key)r does not exist."
+msgstr "Objek %(name)s dengan primary key %(key)r tidak ada."
+
+msgid "error"
+msgstr ""
+
+msgid ""
+"Error! You don't have permissions to move this page. Please reload the page"
+msgstr ""
+"Kesalahan! Anda tidak memiliki izin untuk memindahkan halaman ini. Silahkan "
+"memuat kembali halaman ini"
+
+msgid "Error! You don't have permissions to copy this page."
+msgstr "Kesalahan! Anda tidak memiliki izin untuk menyalin halaman ini."
+
+msgid ""
+"Error! The page you're pasting is not translated in any of the languages "
+"configured by the target site."
+msgstr ""
+"Kesalahan! Halaman yang Anda tempel tidak diterjemahkan ke salah satu bahasa"
+" yang dikonfigurasi oleh situs tujuan."
+
+msgid "You do not have permission to edit this page"
+msgstr "Anda tidak memiliki izin untuk menyunting halaman ini"
+
+msgid ""
+"(to change it, first unpublish the currently published version of this page)"
+msgstr ""
+"(untuk mengubahnya, terlebih dahulu batalkan penerbitan versi halaman ini "
+"yang saat ini diterbitkan)"
+
+msgid "Add Translation"
+msgstr "Tambah Terjemahan"
+
+msgid "Add Page Copy"
+msgstr "Tambah Salinan Halaman"
+
+msgid "New sub page"
+msgstr "Subhalaman baru"
+
+msgid "New page"
+msgstr "Halaman baru"
+
+msgid ""
+"You do not have permission to access this site. Please contact your "
+"administrator."
+msgstr ""
+
+msgid "Database error"
+msgstr "Kesalahan basis data"
+
+msgid "Template not valid"
+msgstr "Template tidak valid"
+
+msgid "Placeholder selection not valid"
+msgstr "Pemilihan placeholder tidak valid"
+
+msgid "The template was successfully changed"
+msgstr "Template berhasil diganti"
+
+#, python-format
+msgid "Placeholder '%s' does not exist in target language"
+msgstr "Placeholder '%s' tidak ada dalam bahasa target"
+
+msgid "You do not have permission to copy these plugins."
+msgstr "Anda tidak memiliki izin untuk menyalin plugin ini."
+
+msgid "You do not have permission to delete this page"
+msgstr "Anda tidak memiliki izin untuk menghapus halaman ini"
+
+#, python-format
+msgid "Title and plugins with language %(language)s was deleted"
+msgstr "Judul dan plugin dengan bahasa %(language)s telah dihapus"
+
+msgid "Public content"
+msgstr "Konten publik"
+
+msgid "Empty"
+msgstr "Kosong"
+
+msgid "Create Content"
+msgstr "Buat Konten"
+
+msgid "View restriction"
+msgstr "Pembatasan tampilan"
+
+msgid "View restrictions"
+msgstr "Pembatasan tampilan"
+
+#, python-format
+msgid "Field %s not found"
+msgstr "Kolom %s tidak ditemukan"
+
+msgid "You do not have permission to edit this item"
+msgstr "Anda tidak memiliki izin untuk menyunting item ini"
+
+msgid "You do not have permission to add a plugin"
+msgstr "Anda tidak memiliki izin untuk menambahkan plugin"
+
+msgid "You do not have permission to copy this placeholder."
+msgstr "Anda tidak memiliki izin untuk menyalin placeholder ini."
+
+msgid "Plugin not found"
+msgstr "Plugin tidak ditemukan"
+
+msgid "You do not have permission to edit this plugin"
+msgstr "Anda tidak memiliki izin untuk menyunting plugin ini"
+
+msgid "You have no permission to paste this plugin"
+msgstr "Anda tidak memiliki izin untuk menempel plugin ini"
+
+msgid "You have no permission to paste this placeholder"
+msgstr "Anda tidak memiliki izin untuk menempel placeholder ini"
+
+msgid "You have no permission to move this plugin"
+msgstr "Anda tidak memiliki izin untuk memindahkan plugin ini"
+
+msgid "You have no permission to cut this plugin"
+msgstr "Anda tidak memiliki izin untuk memotong plugin ini"
+
+msgid "You do not have permission to delete this plugin"
+msgstr "Anda tidak memiliki izin untuk menghapus plugin ini"
+
+#, python-format
+msgid "The %(name)s plugin \"%(obj)s\" was deleted successfully."
+msgstr "Plugin %(name)s \"%(obj)s\" berhasil dihapus."
+
+#, python-format
+msgid "Cannot delete %(name)s"
+msgstr "Tidak dapat menghapus %(name)s"
+
+msgid "Are you sure?"
+msgstr "Anda yakin?"
+
+msgid "You do not have permission to clear this placeholder"
+msgstr "Anda tidak memiliki izin untuk mengosongkan placeholder ini"
+
+#, python-format
+msgid "The placeholder \"%(obj)s\" was cleared successfully."
+msgstr "Placeholder \"%(obj)s\" berhasil dikosongkan."
+
+msgid "placeholder"
+msgstr "placeholder"
+
+msgid "Page permissions"
+msgstr "Izin halaman"
+
+msgid "User & Group permissions"
+msgstr "Izin Pengguna & Grup"
+
+msgid "Page permissions management"
+msgstr "Pengelolaan izin halaman"
+
+msgid "Actions"
+msgstr "Tindakan"
+
+msgid "Empty content"
+msgstr "Konten kosong"
+
+msgid "You do not have permission to change this content."
+msgstr ""
+
+#, python-format
+msgid "%(object_name)s Properties"
+msgstr "Properti %(object_name)s"
+
+#, python-format
+msgid "Add new %(object_name)s"
+msgstr "Tambah %(object_name)s baru"
+
+msgid "Add content"
+msgstr "Tambah konten"
+
+msgid ""
+"Content for the current language has been changed. Click \"Cancel\" to "
+"return to the form and save changes. Click \"OK\" to discard changes."
+msgstr ""
+"Konten untuk bahasa saat ini telah diubah. Klik \"Batal\" untuk kembali ke "
+"formulir dan menyimpan perubahan. Klik \"OK\" untuk membuang perubahan."
+
+#, python-format
+msgid "Add %(language)s content"
+msgstr "Tambah konten %(language)s"
+
+msgid "Preview"
+msgstr "Pratinjau"
+
+msgid "Settings"
+msgstr "Pengaturan"
+
+#, python-format
+msgid ""
+"Invalid language %(value)s. This form cannot be processed. Try changing "
+"languages."
+msgstr ""
+"Bahasa %(value)s tidak valid. Formulir ini tidak dapat diproses. Coba ganti "
+"bahasa."
+
+msgid "<unspecified>"
+msgstr "<tidak ditentukan>"
+
+#, python-format
+msgid "No registered apphook \"%r\" found"
+msgstr "Tidak ditemukan apphook terdaftar \"%r\""
+
+msgid "django CMS"
+msgstr "django CMS"
+
+msgid "Placeholder"
+msgstr "Placeholder"
+
+msgid "Getting started developer guide"
+msgstr "Panduan memulai untuk pengembang"
+
+msgid "Documentation"
+msgstr "Dokumentasi"
+
+msgid "User guide"
+msgstr "Panduan pengguna"
+
+msgid "Discord community"
+msgstr "Komunitas Discord"
+
+msgid "What's new"
+msgstr "Apa yang baru"
+
+msgid "Create"
+msgstr "Buat"
+
+msgid "Edit"
+msgstr "Sunting"
+
+msgid "Structure"
+msgstr "Struktur"
+
+msgid "Content"
+msgstr "Konten"
+
+msgid "Help"
+msgstr "Bantuan"
+
+msgid "Sites"
+msgstr "Situs"
+
+msgid "Admin Sites"
+msgstr "Situs Admin"
+
+msgid "Administration"
+msgstr "Administrasi"
+
+msgid "User settings"
+msgstr "Pengaturan pengguna"
+
+msgid "Clipboard..."
+msgstr "Papan klip..."
+
+msgid "Clear clipboard"
+msgstr "Bersihkan papan klip"
+
+msgid "Disable toolbar"
+msgstr "Nonaktifkan bilah alat"
+
+msgid "Shortcuts..."
+msgstr "Pintasan..."
+
+msgid "Users"
+msgstr "Pengguna"
+
+#, python-format
+msgid "Logout %s"
+msgstr "Keluar %s"
+
+msgid "Logout"
+msgstr "Keluar"
+
+msgid "Language"
+msgstr "Bahasa"
+
+msgid "Delete Translation"
+msgstr "Hapus Terjemahan"
+
+msgid "Copy all plugins"
+msgstr "Salin semua plugin"
+
+#, python-format
+msgid "from %s"
+msgstr "dari %s"
+
+#, python-format
+msgid "Are you sure you want to copy all plugins from %s?"
+msgstr "Apakah Anda yakin ingin menyalin semua plugin dari %s?"
+
+msgid "Pages"
+msgstr "Halaman"
+
+msgid "Page"
+msgstr "Halaman"
+
+msgid "Create Page"
+msgstr "Buat Halaman"
+
+msgid "New Page"
+msgstr "Halaman Baru"
+
+msgid "New Sub Page"
+msgstr "Subhalaman Baru"
+
+msgid "Duplicate this Page"
+msgstr "Duplikasikan Halaman Ini"
+
+msgid "Page settings"
+msgstr "Pengaturan halaman"
+
+msgid "Advanced settings"
+msgstr "Pengaturan lanjutan"
+
+msgid "Templates"
+msgstr "Template"
+
+msgid "Placeholders"
+msgstr ""
+
+msgid "Hide in navigation"
+msgstr "Sembunyikan di navigasi"
+
+msgid "Display in navigation"
+msgstr "Tampilkan di navigasi"
+
+msgid "Delete page"
+msgstr "Hapus halaman"
+
+msgid "Create a new page next to the current page."
+msgstr "Buat halaman baru di samping halaman saat ini."
+
+msgid "Create a page below the current page."
+msgstr "Buat halaman di bawah halaman saat ini."
+
+msgid "Select a valid site"
+msgstr "Pilih situs yang valid"
+
+msgid "Select a valid page"
+msgstr "Pilih halaman yang valid"
+
+#, python-format
+msgid ""
+"Page %(conflict_page)s has the same url '%(url)s' as current page "
+"\"%(instance)s\"."
+msgstr ""
+"Halaman %(conflict_page)s memiliki url '%(url)s' yang sama dengan halaman "
+"saat ini \"%(instance)s\"."
+
+#, python-format
+msgid "Page %(conflict_page)s has the same url '%(url)s' as current page."
+msgstr ""
+"Halaman %(conflict_page)s memiliki url '%(url)s' yang sama dengan halaman "
+"saat ini."
+
+msgid "Add another"
+msgstr ""
+
+msgid ""
+"Optional. If supplied, will be automatically added within a new text plugin."
+msgstr ""
+"Opsional. Jika diisi, akan ditambahkan secara otomatis ke dalam plugin teks "
+"baru."
+
+msgid "Provide a title for the new page."
+msgstr "Berikan judul untuk halaman baru."
+
+msgid "Leave empty for automatic slug, or override as required."
+msgstr "Biarkan kosong untuk slug otomatis, atau ganti sesuai kebutuhan."
+
+msgid "Cannot automatically create slug. Please provide one manually."
+msgstr ""
+"Tidak dapat membuat slug secara otomatis. Harap masukkan secara manual."
+
+msgid "Please provide a valid slug."
+msgstr "Harap masukkan slug yang valid."
+
+msgid "You don't have the permissions required to add a page."
+msgstr "Anda tidak memiliki izin yang diperlukan untuk menambahkan halaman."
+
+msgid "ID"
+msgstr "ID"
+
+msgid "position"
+msgstr "posisi"
+
+msgid "language"
+msgstr "bahasa"
+
+msgid "plugin_name"
+msgstr "plugin_name"
+
+msgid "creation date"
+msgstr "tanggal pembuatan"
+
+msgid "can edit"
+msgstr "dapat menyunting"
+
+msgid "can add"
+msgstr "dapat menambah"
+
+msgid "can delete"
+msgstr "dapat menghapus"
+
+msgid "can change advanced settings"
+msgstr "dapat mengubah pengaturan lanjutan"
+
+msgid "can publish"
+msgstr "dapat menerbitkan"
+
+msgid "can change permissions"
+msgstr "dapat mengubah izin"
+
+msgid "can move"
+msgstr "dapat memindahkan"
+
+msgid "view restricted"
+msgstr "tampilan dibatasi"
+
+msgid "can recover pages"
+msgstr "dapat memulihkan halaman"
+
+msgid "group"
+msgstr "grup"
+
+msgid "sites"
+msgstr "situs"
+
+msgid "created by"
+msgstr "dibuat oleh"
+
+msgid "changed by"
+msgstr "diubah oleh"
+
+msgid "publication date"
+msgstr "tanggal penerbitan"
+
+msgid "publication end date"
+msgstr "tanggal berakhir penerbitan"
+
+msgid "in navigation"
+msgstr "di navigasi"
+
+msgid "soft root"
+msgstr "akar lunak"
+
+msgid "id"
+msgstr "id"
+
+msgid "attached menu"
+msgstr "menu terlampir"
+
+msgid "template"
+msgstr "template"
+
+msgid "login required"
+msgstr "perlu masuk"
+
+msgid "menu visibility"
+msgstr "visibilitas menu"
+
+msgid "application"
+msgstr "aplikasi"
+
+msgid "application instance name"
+msgstr "nama instans aplikasi"
+
+msgid "site"
+msgstr "situs"
+
+msgid "Grant on"
+msgstr "Berikan pada"
+
+msgid "page"
+msgstr "halaman"
+
+msgid "no limit set"
+msgstr "tidak ada batas yang diatur"
+
+msgid "for logged in users only"
+msgstr "hanya untuk pengguna yang masuk"
+
+msgid "for anonymous users only"
+msgstr "hanya untuk pengguna anonim"
+
+msgid "Inherit from parent page"
+msgstr "Warisi dari halaman induk"
+
+msgid "Deny"
+msgstr "Tolak"
+
+msgid "Only this website"
+msgstr "Hanya situs web ini"
+
+msgid "Allow"
+msgstr "Izinkan"
+
+msgid "title"
+msgstr "judul"
+
+msgid "The default title"
+msgstr "Judul default"
+
+msgid "Page Title"
+msgstr "Judul Halaman"
+
+msgid ""
+"Overwrites what is displayed at the top of your browser or in bookmarks"
+msgstr ""
+"Mengganti apa yang terpampang di atas browser anda atau di dalam bookmarks"
+
+msgid "Menu Title"
+msgstr "Judul Menu"
+
+msgid "Overwrite what is displayed in the menu"
+msgstr "Mengganti apa yang tertulis di menu"
+
+msgid "Description meta tag"
+msgstr "Deskripsi meta tag"
+
+msgid "A description of the page used by search engines."
+msgstr "Deskripsi dari halaman yang digunakan oleh mesin pencari."
+
+msgid "redirect"
+msgstr "pengalihan"
+
+msgid "Redirects to this URL."
+msgstr "Mengalihkan ke URL ini."
+
+msgid "All ancestors will not be displayed in the navigation"
+msgstr "Semua leluhur tidak akan ditampilkan di navigasi"
+
+msgid "The template used to render the content."
+msgstr "Template yang digunakan untuk merender konten."
+
+msgid "page content"
+msgstr "konten halaman"
+
+msgid "page contents"
+msgstr "konten halaman"
+
+msgid "default"
+msgstr "bawaan"
+
+msgid ""
+"A unique identifier that is used with the page_url templatetag for linking "
+"to this page"
+msgstr ""
+"Pengenal unik yang digunakan dengan templatetag page_url untuk menautkan ke "
+"halaman ini"
+
+msgid "Mark this page as a page type"
+msgstr "Tandai halaman ini sebagai tipe halaman"
+
+msgid "pages"
+msgstr "halaman"
+
+msgid "No available title"
+msgstr "Tidak ada judul yang tersedia"
+
+msgid "slug"
+msgstr "slug"
+
+msgid "Path"
+msgstr "Jalur"
+
+msgid "Current page"
+msgstr "Halaman saat ini"
+
+msgid "Page children (immediate)"
+msgstr "Anak halaman (langsung)"
+
+msgid "Page and children (immediate)"
+msgstr "Halaman dan anak (langsung)"
+
+msgid "Page descendants"
+msgstr "Keturunan halaman"
+
+msgid "Page and descendants"
+msgstr "Halaman dan keturunan"
+
+msgid "on page level"
+msgstr "pada tingkat halaman"
+
+msgid "frontend view restriction"
+msgstr "pembatasan tampilan frontend"
+
+msgid "Please select user or group."
+msgstr "Harap pilih pengguna atau grup."
+
+msgid ""
+"Users can't publish a page without permissions to change the page. Edit "
+"permissions required."
+msgstr ""
+"Pengguna tidak dapat menerbitkan halaman tanpa izin untuk mengubah halaman. "
+"Izin penyuntingan diperlukan."
+
+msgid ""
+"Users can't change page advanced settings without permissions to change the "
+"page. Edit permissions required."
+msgstr ""
+"Pengguna tidak dapat mengubah pengaturan lanjutan halaman tanpa izin untuk "
+"mengubah halaman. Izin penyuntingan diperlukan."
+
+msgid ""
+"Users can't change page permissions without permissions to change the page. "
+"Edit permissions required."
+msgstr ""
+"Pengguna tidak dapat mengubah izin halaman tanpa izin untuk mengubah "
+"halaman. Izin penyuntingan diperlukan."
+
+msgid ""
+"Users can't move a page without permissions to change the page. Edit "
+"permissions required."
+msgstr ""
+"Pengguna tidak dapat memindahkan halaman tanpa izin untuk mengubah halaman. "
+"Izin penyuntingan diperlukan."
+
+msgid "can recover any deleted page"
+msgstr "dapat memulihkan halaman yang dihapus"
+
+msgid "If none selected, user haves granted permissions to all sites."
+msgstr "Jika tidak ada yang dipilih, pengguna diberi izin untuk semua situs."
+
+msgid "Page global permission"
+msgstr "Izin global halaman"
+
+msgid "Pages global permissions"
+msgstr "Izin global halaman"
+
+msgid "Page permission"
+msgstr "Izin halaman"
+
+msgid ""
+"Add page permission requires also access to children, or descendants, "
+"otherwise added page can't be changed by its creator."
+msgstr ""
+"Penambahan izin halaman juga memerlukan akses ke anak, atau keturunan, jika "
+"tidak halaman yang ditambahkan tidak dapat diubah oleh pembuatnya."
+
+msgid "User (page)"
+msgstr "Pengguna (halaman)"
+
+msgid "Users (page)"
+msgstr "Pengguna (halaman)"
+
+msgid "User group (page)"
+msgstr "Grup pengguna (halaman)"
+
+msgid "User groups (page)"
+msgstr "Grup pengguna (halaman)"
+
+msgid "slot"
+msgstr "slot"
+
+msgid "width"
+msgstr "lebar"
+
+msgid "Edit object"
+msgstr ""
+
+msgid "This is an external placeholder"
+msgstr ""
+
+msgid "plugin"
+msgstr ""
+
+msgid "plugins"
+msgstr ""
+
+msgid "<Empty>"
+msgstr "<Kosong>"
+
+msgid "The language for the admin interface and toolbar"
+msgstr "Bahasa untuk antarmuka admin dan bilah alat"
+
+msgid "user setting"
+msgstr "pengaturan pengguna"
+
+msgid "user settings"
+msgstr "pengaturan pengguna"
+
+msgid "Advanced options"
+msgstr "Opsi lanjutan"
+
+msgid "Generic"
+msgstr "Generik"
+
+#, python-format
+msgid "The %(name)s \"%(obj)s\" was changed successfully."
+msgstr "%(name)s \"%(obj)s\" berhasil diubah."
+
+msgid "There are no further settings for this plugin. Please press save."
+msgstr ""
+"Tidak ada pengaturan lebih lanjut untuk plugin ini. Silakan tekan simpan."
+
+msgid "Moved"
+msgstr "Dipindahkan"
+
+msgid "Changed"
+msgstr "Diubah"
+
+msgid "Deleted"
+msgstr "Dihapus"
+
+msgid "Added Page Translation"
+msgstr "Terjemahan Halaman Ditambahkan"
+
+msgid "Changed Page Translation"
+msgstr "Terjemahan Halaman Diubah"
+
+msgid "Deleted Page Translation"
+msgstr "Terjemahan Halaman Dihapus"
+
+msgid "Added Plugin"
+msgstr "Plugin Ditambahkan"
+
+msgid "Changed Plugin"
+msgstr "Plugin Diubah"
+
+msgid "Moved Plugin"
+msgstr "Plugin Dipindahkan"
+
+msgid "Deleted Plugin"
+msgstr "Plugin Dihapus"
+
+msgid "Cut Plugin"
+msgstr "Plugin Dipotong"
+
+msgid "Paste Plugin"
+msgstr "Tempel Plugin"
+
+msgid "Paste to Placeholder"
+msgstr "Tempel ke Placeholder"
+
+msgid "Added plugins to placeholder from clipboard"
+msgstr "Plugin ditambahkan ke placeholder dari papan klip"
+
+msgid "Cleared Placeholder"
+msgstr "Placeholder Dikosongkan"
+
+msgid "Save"
+msgstr "Simpan"
+
+msgid "Some fields cannot be changed since they are read-only content."
+msgstr "Beberapa kolom tidak dapat diubah karena merupakan konten hanya-baca."
+
+#, python-format
+msgid "Log in to administration <a href=\"%(login_url)s\">here</a>."
+msgstr "Masuk ke administrasi <a href=\"%(login_url)s\">di sini</a>."
+
+#, python-format
+msgid "Login url: %(login_url)s"
+msgstr "URL masuk: %(login_url)s"
+
+msgid "Username:"
+msgstr "Nama pengguna:"
+
+msgid "Password:"
+msgstr "Kata sandi:"
+
+msgid "Add a page"
+msgstr "Tambah halaman"
+
+msgid "Change a page"
+msgstr "Ubah halaman"
+
+msgid "Home"
+msgstr "Beranda"
+
+msgid "View on site"
+msgstr "Lihat di situs"
+
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] "Harap perbaiki kesalahan di bawah ini."
+
+msgid "All permissions"
+msgstr "Semua izin"
+
+msgid "Loading..."
+msgstr "Memuat..."
+
+msgid "Save and continue editing"
+msgstr "Simpan dan lanjutkan penyuntingan"
+
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+"Apakah Anda yakin ingin menghapus %(object_name)s \"%(escaped_object)s\"? "
+"Semua item terkait berikut akan dihapus:"
+
+msgid "Yes, I’m sure"
+msgstr "Ya, saya yakin"
+
+msgid "No, take me back"
+msgstr "Tidak, kembalikan saya"
+
+msgid "Summary"
+msgstr "Ringkasan"
+
+msgid "User"
+msgstr "Pengguna"
+
+msgid "Group"
+msgstr "Grup"
+
+msgid "Can edit"
+msgstr "Dapat menyunting"
+
+msgid "Can add"
+msgstr "Dapat menambah"
+
+msgid "Can delete"
+msgstr "Dapat menghapus"
+
+msgid "Can publish"
+msgstr "Dapat menerbitkan"
+
+msgid "Can change permissions"
+msgstr "Dapat mengubah izin"
+
+msgid "Can move"
+msgstr "Dapat memindahkan"
+
+msgid "Can view"
+msgstr "Dapat melihat"
+
+msgid "(global)"
+msgstr "(global)"
+
+msgid "(current)"
+msgstr "(saat ini)"
+
+msgid "Page doesn't inherit any permissions."
+msgstr "Halaman tidak mewarisi izin apa pun."
+
+msgid "Edit model"
+msgstr "Sunting model"
+
+msgid "Save as new"
+msgstr "Simpan sebagai baru"
+
+msgid "Save and add another"
+msgstr "Simpan dan tambah lainnya"
+
+msgid "Copy"
+msgstr "Salin"
+
+msgid "Cut"
+msgstr "Potong"
+
+msgid "Paste"
+msgstr "Tempel"
+
+msgid "Set as home"
+msgstr "Atur sebagai beranda"
+
+msgid "is restricted"
+msgstr "dibatasi"
+
+msgid "last change by"
+msgstr "perubahan terakhir oleh"
+
+msgid "last change on"
+msgstr "perubahan terakhir pada"
+
+msgid "meta"
+msgstr "meta"
+
+msgid "List of pages"
+msgstr "Daftar halaman"
+
+msgid "Search"
+msgstr "Cari"
+
+msgid "Page Tree"
+msgstr "Pohon Halaman"
+
+msgid "Reset filter"
+msgstr "Atur ulang filter"
+
+#, python-format
+msgid ""
+"\n"
+"                                                Restore deleted %(name)s\n"
+"                                            "
+msgstr ""
+"\n"
+"                                                Pulihkan %(name)s yang dihapus\n"
+"                                            "
+
+msgid "Main Navigation"
+msgstr "Navigasi Utama"
+
+msgid "Options"
+msgstr "Opsi"
+
+msgid "Successfully moved"
+msgstr "Berhasil dipindahkan"
+
+msgid "Changes within the tree might require a refresh."
+msgstr "Perubahan dalam pohon mungkin memerlukan penyegaran."
+
+msgid "Error:"
+msgstr "Kesalahan:"
+
+msgid ""
+"This page cannot be copied because an application is attached to it. See the"
+" Page's Advanced settings to manage apphooks."
+msgstr ""
+"Halaman ini tidak dapat disalin karena ada aplikasi yang terlampir. Lihat "
+"Pengaturan lanjutan halaman untuk mengelola apphook."
+
+msgid "Are you sure you want to § this page?"
+msgstr "Apakah Anda yakin ingin § halaman ini?"
+
+msgid "Reload"
+msgstr "Muat ulang"
+
+msgid "New node"
+msgstr "Node baru"
+
+msgid "nodes"
+msgstr "node"
+
+msgid "View"
+msgstr "Lihat"
+
+msgid "Menu"
+msgstr "Menu"
+
+#, python-format
+msgid ""
+"\n"
+"                            <em>There is no %(object)s around yet.</em>\n"
+"                            <br>\n"
+"                            <a href=\"%(add_url)s\" class=\"addlink\">Add %(object)s</a> now.\n"
+"                        "
+msgstr ""
+"\n"
+"                            <em>Belum ada %(object)s.</em>\n"
+"                            <br>\n"
+"                            <a href=\"%(add_url)s\" class=\"addlink\">Tambah %(object)s</a> sekarang.\n"
+"                        "
+
+msgid "Copy options"
+msgstr "Opsi penyalinan"
+
+msgid "Choose copy options"
+msgstr "Pilih opsi penyalinan"
+
+msgid "Close"
+msgstr "Tutup"
+
+msgid "Legend"
+msgstr "Legenda"
+
+msgid "In menu"
+msgstr "Di menu"
+
+msgid "Not in menu"
+msgstr "Tidak di menu"
+
+msgid "View page"
+msgstr "Lihat halaman"
+
+msgid "Softroot"
+msgstr "Akar lunak"
+
+msgid "Apphook"
+msgstr "Apphook"
+
+msgid "Redirect"
+msgstr "Mengalihkan"
+
+#, python-format
+msgid "Application: %(apphook)s"
+msgstr "Aplikasi: %(apphook)s"
+
+msgid "in menu"
+msgstr "di menu"
+
+msgid "not in menu"
+msgstr "tidak di menu"
+
+msgid "Page settings (SHIFT click for advanced settings)"
+msgstr "Pengaturan halaman (klik SHIFT untuk pengaturan lanjutan)"
+
+msgid "Permissions"
+msgstr "Izin"
+
+msgid "inherited"
+msgstr "diwarisi"
+
+msgid "This page has no preview!"
+msgstr "Halaman ini tidak memiliki pratinjau!"
+
+msgid ""
+"Potentially the attached apphook does not provide content for its root."
+msgstr ""
+"Kemungkinan apphook yang terlampir tidak menyediakan konten untuk root-nya."
+
+msgid "It is being redirected to:"
+msgstr "Sedang dialihkan ke:"
+
+msgid "Clipboard"
+msgstr "Papan klip"
+
+msgid "Add plugin"
+msgstr "Tambah plugin"
+
+msgid "Copy all"
+msgstr "Salin semua"
+
+msgid "Copy from"
+msgstr "Salin dari"
+
+msgid "Empty all"
+msgstr "Kosongkan semua"
+
+msgid "Filter plugins..."
+msgstr "Filter plugin..."
+
+msgid "Expand all"
+msgstr "Bentangkan semua"
+
+msgid "Collapse all"
+msgstr "Ciutkan semua"
+
+msgid "You cannot add plugins to this plugin."
+msgstr "Anda tidak dapat menambahkan plugin ke plugin ini."
+
+msgid "This plugin cannot be moved or edited outside of its parent"
+msgstr "Plugin ini tidak dapat dipindahkan atau disunting di luar induknya"
+
+msgid "Clipboard is empty."
+msgstr "Papan klip kosong."
+
+msgid "This plugin does not allow plugins of this type as nested plugins."
+msgstr ""
+"Plugin ini tidak mengizinkan plugin tipe ini sebagai plugin bersarang."
+
+msgid "This plugin cannot have nested plugins."
+msgstr "Plugin ini tidak dapat memiliki plugin bersarang."
+
+msgid "Highlight"
+msgstr "Sorot"
+
+msgid "Available plugins"
+msgstr "Plugin yang tersedia"
+
+msgid "Toggle structure"
+msgstr "Alihkan struktur"
+
+msgid "Login"
+msgstr "Masuk"
+
+msgid "Add plugin to"
+msgstr "Tambah plugin ke"
+
+msgid "More"
+msgstr "Lainnya"
+
+#, python-format
+msgid ""
+"Development version using django CMS %(cms_version)s, Django "
+"%(django_version)s, Python %(python_version)s"
+msgstr ""
+"Versi pengembangan menggunakan django CMS %(cms_version)s, Django "
+"%(django_version)s, Python %(python_version)s"
+
+msgid "Cancel"
+msgstr "Batal"
+
+msgid "The following error occurred:"
+msgstr "Kesalahan berikut terjadi:"
+
+msgid "Action successful."
+msgstr "Tindakan berhasil."
+
+msgid "Are you sure you want to delete this plugin?"
+msgstr "Apakah Anda yakin ingin menghapus plugin ini?"
+
+msgid "Are you sure you want to publish this page?"
+msgstr "Apakah Anda yakin ingin menerbitkan halaman ini?"
+
+msgid "Plugin will be added here"
+msgstr "Plugin akan ditambahkan di sini"
+
+msgid "You have unsaved changes."
+msgstr "Anda memiliki perubahan yang belum disimpan."
+
+msgid "Loading"
+msgstr "Memuat"
+
+msgid "Are you sure you want to abandon these changes?"
+msgstr "Apakah Anda yakin ingin membuang perubahan ini?"
+
+msgid ""
+"The form could not be loaded. Please check that the server is running "
+"correctly."
+msgstr ""
+"Formulir tidak dapat dimuat. Harap periksa bahwa server berjalan dengan "
+"benar."
+
+msgid "Most used"
+msgstr "Paling sering digunakan"
+
+msgid "Shortcuts"
+msgstr "Pintasan"
+
+msgid "The page was changed in the meantime, reloading..."
+msgstr "Halaman telah diubah sementara itu, memuat ulang..."
+
+msgid "CMS-wide Shortcuts"
+msgstr "Pintasan seluruh CMS"
+
+msgid "Bring up this help dialog"
+msgstr "Tampilkan dialog bantuan ini"
+
+msgid "Close/cancel"
+msgstr "Tutup/batal"
+
+msgid "Toggle structure mode"
+msgstr "Alihkan mode struktur"
+
+msgid "Toggle structure mode and highlight hovered-over plugin"
+msgstr "Alihkan mode struktur dan sorot plugin yang ditunjuk kursor"
+
+msgid "Open \\"
+msgstr "Buka \\"
+
+msgid "Focus on Toolbar"
+msgstr "Fokus pada Bilah Alat"
+
+msgid "Focus on placeholders"
+msgstr "Fokus pada placeholder"
+
+msgid "Move to next/previous element"
+msgstr "Pindah ke elemen berikutnya/sebelumnya"
+
+msgid "Focus on plugins of placeholder"
+msgstr "Fokus pada plugin placeholder"
+
+msgid "Edit plugin"
+msgstr "Sunting plugin"
+
+msgid "Open actions menu"
+msgstr "Buka menu tindakan"
+
+msgid "Expand/collapse"
+msgstr "Bentangkan/ciutkan"
+
+msgid ""
+"<strong>Login failed.</strong> Please check your credentials and try again."
+msgstr ""
+"<strong>Gagal masuk.</strong> Harap periksa kredensial Anda dan coba lagi."
+
+msgid "Double-click to edit"
+msgstr "Klik dua kali untuk menyunting"
+
+msgid "Tap to edit"
+msgstr "Ketuk untuk menyunting"
+
+msgid "Click to go back"
+msgstr "Klik untuk kembali"
+
+msgid "Click to go forward"
+msgstr "Klik untuk maju"
+
+msgid "Minimize"
+msgstr "Perkecil"
+
+msgid "Maximize"
+msgstr "Perbesar"
+
+msgid "Placeholder not editable"
+msgstr ""
+
+msgid "Drop a plugin here"
+msgstr "Letakkan plugin di sini"
+
+msgid "Welcome to your new django CMS installation!"
+msgstr ""
+
+#, python-format
+msgid "Version %(cms_version)s"
+msgstr "Versi %(cms_version)s"
+
+msgid "Let’s build something great together!"
+msgstr "Mari bangun sesuatu yang hebat bersama!"
+
+msgid "Please log in"
+msgstr "Harap masuk"
+
+msgid ""
+"\n"
+"                <a class=\"js-welcome-add cms-btn cms-btn-action\">Add your first page</a>\n"
+"            "
+msgstr ""
+"\n"
+"                <a class=\"js-welcome-add cms-btn cms-btn-action\">Tambah halaman pertama Anda</a>\n"
+"            "
+
+msgid ""
+"\n"
+"                    <h2>Help Funding</h2>\n"
+"                    <p>\n"
+"                        Your funding directly benefits the product, mainly through the\n"
+"                        <a href=\"https://www.django-cms.org/en/fellowship-program/\">django CMS Fellowship Program</a>!\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        A quick way for yourself or your organisation to donate is on\n"
+"                        <a href=\"https://github.com/sponsors/django-cms\">Github Sponsors</a>.\n"
+"                    </p>\n"
+"                "
+msgstr ""
+"\n"
+"                    <h2>Bantu Pendanaan</h2>\n"
+"                    <p>\n"
+"                        Pendanaan Anda secara langsung bermanfaat bagi produk, terutama melalui\n"
+"                        <a href=\"https://www.django-cms.org/en/fellowship-program/\">Program Fellowship django CMS</a>!\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Cara cepat bagi Anda atau organisasi Anda untuk berdonasi adalah melalui\n"
+"                        <a href=\"https://github.com/sponsors/django-cms\">Github Sponsors</a>.\n"
+"                    </p>\n"
+"                "
+
+msgid ""
+"\n"
+"                    <h2>Join Us</h2>\n"
+"                    <p>\n"
+"                        The django CMS Association is a non-profit organisation that funds and steers the development of\n"
+"                        django CMS.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        You can <a href=\"https://www.django-cms.org/en/memberships/\">join both as an individual or as an\n"
+"                        organisation</a>.\n"
+"                    </p>\n"
+"                "
+msgstr ""
+"\n"
+"                    <h2>Bergabunglah Dengan Kami</h2>\n"
+"                    <p>\n"
+"                        django CMS Association adalah organisasi nirlaba yang mendanai dan mengarahkan pengembangan\n"
+"                        django CMS.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Anda dapat <a href=\"https://www.django-cms.org/en/memberships/\">bergabung baik sebagai individu maupun sebagai\n"
+"                        organisasi</a>.\n"
+"                    </p>\n"
+"                "
+
+msgid ""
+"\n"
+"                    <h2>Contribute</h2>\n"
+"                    <ul>\n"
+"                        <li><a href=\"https://www.django-cms.org/en/contribute/\">Contribute code:</a> fix a bug or\n"
+"                            implement a new feature!</li>\n"
+"                        <li><a href=\"https://www.django-cms.org/en/volunteering-opportunities/\">Volunteer:</a>\n"
+"                            We offer fun and efficient team work!</li>\n"
+"                        <li><a href=\"https://www.django-cms.org/en/repositories-plugins/\">Open-source your work:</a>\n"
+"                            Make the ecosystem strong.</li>\n"
+"                    </ul>\n"
+"                "
+msgstr ""
+"\n"
+"                    <h2>Berkontribusi</h2>\n"
+"                    <ul>\n"
+"                        <li><a href=\"https://www.django-cms.org/en/contribute/\">Berkontribusi kode:</a> perbaiki bug atau\n"
+"                            implementasikan fitur baru!</li>\n"
+"                        <li><a href=\"https://www.django-cms.org/en/volunteering-opportunities/\">Menjadi relawan:</a>\n"
+"                            Kami menawarkan kerja tim yang menyenangkan dan efisien!</li>\n"
+"                        <li><a href=\"https://www.django-cms.org/en/repositories-plugins/\">Jadikan pekerjaan Anda sumber terbuka:</a>\n"
+"                            Perkuat ekosistem.</li>\n"
+"                    </ul>\n"
+"                "
+
+msgid "Installation Notes"
+msgstr "Catatan Instalasi"
+
+msgid "Support"
+msgstr "Dukungan"
+
+msgid "Give back"
+msgstr "Beri kembali"
+
+msgid ""
+"\n"
+"                <p class=\"cms-welcome-notes\">If you don't see the django CMS logo at the top, make sure\n"
+"                    you linked the <code>static/cms</code> folder to your\n"
+"                    static files.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p class=\"cms-welcome-notes\">Jika Anda tidak melihat logo django CMS di bagian atas, pastikan\n"
+"                    Anda menautkan folder <code>static/cms</code> ke\n"
+"                    berkas statis Anda.</p>\n"
+"            "
+
+msgid ""
+"\n"
+"                    <p class=\"cms-welcome-notes\">You're seeing this message because you have\n"
+"                        <code>DEBUG = True</code> in your django settings file and\n"
+"                        haven't added any pages yet.\n"
+"                    </p>\n"
+"                "
+msgstr ""
+"\n"
+"                    <p class=\"cms-welcome-notes\">Anda melihat pesan ini karena Anda memiliki\n"
+"                        <code>DEBUG = True</code> di berkas pengaturan django Anda dan\n"
+"                        belum menambahkan halaman apa pun.\n"
+"                    </p>\n"
+"                "
+
+msgid "Welcome to django CMS"
+msgstr "Selamat datang di django CMS"
+
+msgid "Add Another"
+msgstr "Tambah Lainnya"
+
+msgid "Back"
+msgstr "Kembali"
+
+msgid "Please choose an option from below to proceed to the next step."
+msgstr ""
+"Harap pilih opsi di bawah ini untuk melanjutkan ke langkah berikutnya."
+
+msgid "Next"
+msgstr "Berikutnya"
+
+msgid "Select what you would like to create"
+msgstr "Pilih apa yang ingin Anda buat"
+
+msgid "Unknown"
+msgstr "Tidak diketahui"
+
+#, python-format
+msgid "Page not found on %(domain)s"
+msgstr "Halaman tidak ditemukan di %(domain)s"
+
+#, python-format
+msgid ""
+"A template tag couldn't find the page with lookup arguments `%(page_lookup)s\n"
+"`. The URL of the request was: http://%(host)s%(path)s"
+msgstr ""
+"Sebuah template tag tidak dapat menemukan halaman dengan argumen pencarian `%(page_lookup)s\n"
+"`. URL dari permintaan adalah: http://%(host)s%(path)s"
+
+msgid "Two columns"
+msgstr "Dua kolom"
+
+msgid "Three columns"
+msgstr "Tiga kolom"
+
+msgid "username"
+msgstr "nama pengguna"
+
+msgid ""
+"Required. 300 characters or fewer. Letters, numbers and @/./+/-/_ characters"
+msgstr "Wajib. 300 karakter atau kurang. Huruf, angka, dan karakter @/./+/-/_"
+
+msgid "Enter a valid username."
+msgstr "Masukkan nama pengguna yang valid."
+
+msgid "email address"
+msgstr "alamat email"
+
+msgid "staff status"
+msgstr "status staf"
+
+msgid "Designates whether the user can log into this admin site."
+msgstr "Menentukan apakah pengguna dapat masuk ke situs admin ini."
+
+msgid "active"
+msgstr "aktif"
+
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+"Menentukan apakah pengguna ini harus diperlakukan sebagai aktif. Batal pilih"
+" ini alih-alih menghapus akun."
+
+msgid "users"
+msgstr "pengguna"
+
+msgid "Title Extension"
+msgstr "Ekstensi Judul"
+
+msgid "Page Extension"
+msgstr "Ekstensi Halaman"
+
+msgid "object ID"
+msgstr "ID objek"
+
+msgid "Example1 App"
+msgstr "Aplikasi Example1"
+
+msgid "MultilingualExample1 App"
+msgstr "Aplikasi MultilingualExample1"
+
+msgid "Example1"
+msgstr "Example1"
+
+msgid "Examples"
+msgstr "Contoh"
+
+msgid "Extra Context"
+msgstr "Konteks Tambahan"
+
+msgid "Articles"
+msgstr "Artikel"
+
+msgid "Sample App"
+msgstr "Aplikasi Contoh"
+
+msgid "Sample App with config"
+msgstr "Aplikasi Contoh dengan konfigurasi"
+
+msgid "Sample App with excluded permissions"
+msgstr "Aplikasi Contoh dengan izin yang dikecualikan"
+
+msgid "Sample App 2"
+msgstr "Aplikasi Contoh 2"
+
+msgid "Sample App 3"
+msgstr "Aplikasi Contoh 3"
+
+msgid "Sample App Without Landing Page"
+msgstr ""
+
+msgid "Namespaced App"
+msgstr "Aplikasi Ber-namespace"
+
+msgid "Parent app"
+msgstr "Aplikasi induk"
+
+msgid "Child app"
+msgstr "Aplikasi anak"
+
+msgid "Variable urls-menus App"
+msgstr "Aplikasi urls-menus Variabel"
+
+msgid "sample root page"
+msgstr "contoh halaman root"
+
+msgid "sample settings page"
+msgstr "contoh halaman pengaturan"
+
+msgid "sample account page"
+msgstr "contoh halaman akun"
+
+msgid "sample my profile page"
+msgstr "contoh halaman profil saya"
+
+msgid "Static Menu"
+msgstr "Menu Statis"
+
+msgid "Static Menu2"
+msgstr "Menu Statis2"
+
+msgid "Static Menu3"
+msgstr "Menu Statis3"
+
+msgid "Static Menu4"
+msgstr "Menu Statis4"
+
+msgid "Category"
+msgstr "Kategori"
+
+msgid "Categories"
+msgstr "Kategori"
+
+msgid "Add Category"
+msgstr "Tambah Kategori"
+
+msgid "^account/$"
+msgstr "^account/$"
+
+msgid "Change Category"
+msgstr "Ubah Kategori"
+
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr ""
+"Terima kasih telah meluangkan waktu berkualitas bersama situs web ini hari "
+"ini."
+
+msgid "Inherit the template of the nearest ancestor"
+msgstr "Warisi template dari leluhur terdekat"
+
+msgid "UserSettings"
+msgstr "UserSettings"
+
+#, python-format
+msgid "Add plugin to placeholder \"%(placeholder_label)s\""
+msgstr "Tambah plugin ke placeholder \"%(placeholder_label)s\""
+
+#, python-format
+msgid "Add plugin to %(plugin_name)s"
+msgstr "Tambah plugin ke %(plugin_name)s"
+
+msgid "Single placeholder"
+msgstr ""
+
+msgid "Community forum"
+msgstr "Forum komunitas"
+
+msgid "Getting started"
+msgstr "Memulai"
+
+msgid "Talk to us"
+msgstr "Hubungi kami"
+
+msgid "CMS - your user account was created."
+msgstr "CMS - akun pengguna Anda telah dibuat."
+
+msgid "CMS - your user account was changed."
+msgstr "CMS - akun pengguna Anda telah diubah."
+
+#, python-format
+msgid "This placeholder already has the maximum number of plugins (%s)."
+msgstr "Placeholder ini sudah memiliki jumlah plugin maksimum (%s)."
+
+#, python-format
+msgid ""
+"This placeholder already has the maximum number (%(limit)s) of allowed "
+"%(plugin_name)s plugins."
+msgstr ""
+"Placeholder ini sudah memiliki jumlah maksimum (%(limit)s) plugin "
+"%(plugin_name)s yang diizinkan."
+
+#, python-brace-format
+msgid "Unable to find the specified CMS_REQUEST_IP_RESOLVER module: \"{0}\"."
+msgstr ""
+"Tidak dapat menemukan modul CMS_REQUEST_IP_RESOLVER yang ditentukan: "
+"\"{0}\"."
+
+#, python-brace-format
+msgid ""
+"Unable to find the specified CMS_REQUEST_IP_RESOLVER function: \"{0}\" in "
+"module \"{1}\"."
+msgstr ""
+"Tidak dapat menemukan fungsi CMS_REQUEST_IP_RESOLVER yang ditentukan: "
+"\"{0}\" di modul \"{1}\"."
+
+#, python-format
+msgid "Create a new %s instance."
+msgstr "Buat instans %s baru."
+
+#, python-format
+msgid "A wizard has already been registered for model: %s"
+msgstr "Sebuah wizard sudah terdaftar untuk model: %s"

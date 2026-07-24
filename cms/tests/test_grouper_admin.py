@@ -1,0 +1,1288 @@
+import copy
+from unittest.mock import MagicMock, patch
+
+from django.conf import settings
+from django.contrib.admin import site
+from django.contrib.auth import get_permission_codename
+from django.contrib.sites.models import Site
+from django.db import connection
+from django.templatetags.static import static
+from django.test.utils import CaptureQueriesContext
+from django.utils.crypto import get_random_string
+from django.utils.translation import get_language, override as force_language
+
+from cms.admin.utils import CONTENT_PREFIX, GrouperModelAdmin
+from cms.test_utils.project.sampleapp.models import (
+    GrouperModel,
+    GrouperModelContent,
+    SimpleGrouperModel,
+    SimpleGrouperModelContent,
+)
+from cms.test_utils.testcases import CMSTestCase
+from cms.test_utils.util.grouper import wo_content_permission
+from cms.utils.i18n import get_language_list
+from cms.utils.urlutils import admin_reverse, static_with_version
+
+
+class SetupMixin:
+    """Create one grouper object and retrieve the admin instance"""
+
+    def setUp(self) -> None:
+        self.grouper_instance = GrouperModel.objects.create(category_name="Grouper Category")
+        self.add_url = admin_reverse("sampleapp_groupermodel_add")
+        self.change_url = admin_reverse("sampleapp_groupermodel_change", args=(self.grouper_instance.pk,))
+        self.changelist_url = admin_reverse("sampleapp_groupermodel_changelist")
+        self.admin_user = self.get_superuser()
+        self.admin = site._registry[GrouperModel]
+        self.groupermodel = "groupermodel"
+        self.grouper_model = "grouper_model"
+
+    def tearDown(self) -> None:
+        self.grouper_instance.delete()
+        self.admin.clear_content_cache()  # The admin does this automatically for each new request.
+
+    def createContentInstance(self, language="en"):
+        """Creates a content instance with a random content for a language. The random content is returned
+        to be able to check if it appears in forms etc."""
+        instance = GrouperModelContent.objects.create(
+            grouper_model=self.grouper_instance,
+            language=language,
+            secret_greeting=get_random_string(16),
+        )
+        self.admin.clear_content_cache()  # The admin does this automatically for each new request.
+        return instance
+
+
+class SimpleSetupMixin:
+    """Create one grouper object and retrieve the admin instance"""
+
+    def setUp(self) -> None:
+        self.grouper_instance = SimpleGrouperModel.objects.create(category_name="Grouper Category")
+        self.add_url = admin_reverse("sampleapp_simplegroupermodel_add")
+        self.change_url = admin_reverse("sampleapp_simplegroupermodel_change", args=(self.grouper_instance.pk,))
+        self.changelist_url = admin_reverse("sampleapp_simplegroupermodel_changelist")
+        self.admin_user = self.get_superuser()
+        self.admin = site._registry[SimpleGrouperModel]
+        self.groupermodel = "simplegroupermodel"
+        self.grouper_model = "simple_grouper_model"
+
+    def tearDown(self) -> None:
+        self.grouper_instance.delete()
+        self.admin.clear_content_cache()  # The admin does this automatically for each new request.
+
+    def createContentInstance(self, language="en", grouper_instance=None, secret_greeting=None):
+        """Creates a content instance with a random content for a language. The random content is returned
+        to be able to check if it appears in forms etc."""
+
+        assert language == "en", "Only English is supported for SimpleGrouperModelContent"
+        grouper_instance = grouper_instance or self.grouper_instance
+        secret_greeting = secret_greeting or get_random_string(16)
+        instance = SimpleGrouperModelContent.objects.create(
+            simple_grouper_model=grouper_instance,
+            secret_greeting=secret_greeting,
+        )
+        self.admin.clear_content_cache()  # The admin does this automatically for each new request.
+        return instance
+
+
+class SimpleChangeListActionsTestCase(SimpleSetupMixin, CMSTestCase):
+    def test_action_js_css(self):
+        """Are js and css files loaded?
+        The js and css files are supposed to be arranged by the GrouperAdminMixin."""
+        with self.login_user_context(self.admin_user):
+            # Act
+            response = self.client.get(f"{self.changelist_url}?", follow=True)
+            # Assert
+            self.assertContains(response, static("admin/js/jquery.init.js"))
+            self.assertContains(response, static("cms/js/admin/actions.js"))
+            self.assertContains(response, static_with_version("cms/css/cms.admin.css"))
+
+    def test_add_action(self):
+        """Change list offers an add button if no content object exists for grouper.
+        The button is supposed to be arranged by the GrouperAdminMixin."""
+        with self.login_user_context(self.admin_user):
+            # Act
+            response = self.client.get(f"{self.changelist_url}?language=en", follow=True)
+            # Assert
+            self.assertContains(response, 'class="cms-icon cms-icon-plus"')
+            self.assertContains(
+                response, f'href="/en/admin/sampleapp/{self.groupermodel}/{self.grouper_instance.pk}/change/?'
+            )
+            self.assertNotContains(response, 'class="cms-icon cms-icon-view"')
+
+    def test_change_action(self):
+        """Change list offers a settings button if content object exists for grouper"""
+        # Arrange
+        self.createContentInstance("en")
+        with self.login_user_context(self.admin_user):
+            # Act
+            response = self.client.get(f"{self.changelist_url}?language=en", follow=True)
+            # Assert
+            self.assertNotContains(response, 'class="cms-icon cms-icon-view"')  # Not frontend-editable
+            self.assertContains(
+                response, f'href="/en/admin/sampleapp/{self.groupermodel}/{self.grouper_instance.pk}/change/?'
+            )
+
+    def test_get_action(self):
+        admin = site._registry[GrouperModel]
+
+        get_action = admin.admin_action_button(
+            "/some/url",
+            icon="info",
+            title="Info",
+            action="get",
+        )
+        self.assertIn("cms-form-get-method", get_action)
+        self.assertNotIn("cms-form-post-method", get_action)
+
+    def test_post_action(self):
+        admin = site._registry[GrouperModel]
+
+        get_action = admin.admin_action_button(
+            "/some/url",
+            icon="bin",
+            title="Delete",
+            action="post",
+        )
+        self.assertNotIn("cms-form-get-method", get_action)
+        self.assertIn("cms-form-post-method", get_action)
+
+
+class ChangeListActionsTestCase(SetupMixin, SimpleChangeListActionsTestCase):
+    pass
+
+
+class GrouperModelAdminTestCase(SetupMixin, CMSTestCase):
+    def get_list_editable_post_data(self, response, **values):
+        formset = response.context["cl"].formset
+        data = {
+            "form-TOTAL_FORMS": formset.total_form_count(),
+            "form-INITIAL_FORMS": formset.initial_form_count(),
+            "form-MIN_NUM_FORMS": formset.min_num,
+            "form-MAX_NUM_FORMS": formset.max_num,
+            "_save": "Save",
+        }
+        for index, form in enumerate(formset.forms):
+            data[f"form-{index}-id"] = form.instance.pk
+            for field_name in self.admin.list_editable:
+                data[f"form-{index}-{field_name}"] = values.get(field_name, form[field_name].value())
+            data[f"form-{index}-_content_object_id"] = form["_content_object_id"].value() or ""
+        return data
+
+    def test_list_editable_saves_grouper_field(self):
+        with (
+            patch.object(self.admin, "list_display", ("category_name",)),
+            patch.object(self.admin, "list_display_links", None),
+            patch.object(self.admin, "list_editable", ("category_name",)),
+            self.login_user_context(self.admin_user),
+        ):
+            response = self.client.get(f"{self.changelist_url}?language=en")
+            data = self.get_list_editable_post_data(response, category_name="Changed grouper")
+            response = self.client.post(f"{self.changelist_url}?language=en", data)
+
+        self.assertEqual(response.status_code, 302)
+        self.grouper_instance.refresh_from_db()
+        self.assertEqual(self.grouper_instance.category_name, "Changed grouper")
+
+    def test_list_editable_saves_content_field_for_current_grouping(self):
+        english_content = self.createContentInstance("en")
+        german_content = self.createContentInstance("de")
+        with (
+            patch.object(self.admin, "list_display", ("category_name", "content__secret_greeting")),
+            patch.object(self.admin, "list_editable", ("content__secret_greeting",)),
+            self.login_user_context(self.admin_user),
+        ):
+            response = self.client.get(f"{self.changelist_url}?language=de")
+            self.assertContains(response, 'name="form-0-_content_object_id"')
+            data = self.get_list_editable_post_data(response, content__secret_greeting="Guten Tag")
+            response = self.client.post(f"{self.changelist_url}?language=de", data)
+
+        self.assertEqual(response.status_code, 302)
+        english_content.refresh_from_db()
+        german_content.refresh_from_db()
+        self.assertNotEqual(english_content.secret_greeting, "Guten Tag")
+        self.assertEqual(german_content.secret_greeting, "Guten Tag")
+
+    def test_list_editable_saves_grouper_and_content_fields(self):
+        content = self.createContentInstance("en")
+        with (
+            patch.object(self.admin, "list_display", ("category_name", "content__secret_greeting")),
+            patch.object(self.admin, "list_display_links", None),
+            patch.object(self.admin, "list_editable", ("category_name", "content__secret_greeting")),
+            self.login_user_context(self.admin_user),
+        ):
+            response = self.client.get(f"{self.changelist_url}?language=en")
+            data = self.get_list_editable_post_data(
+                response,
+                category_name="Changed grouper",
+                content__secret_greeting="Changed content",
+            )
+            response = self.client.post(f"{self.changelist_url}?language=en", data)
+
+        self.assertEqual(response.status_code, 302)
+        self.grouper_instance.refresh_from_db()
+        content.refresh_from_db()
+        self.assertEqual(self.grouper_instance.category_name, "Changed grouper")
+        self.assertEqual(content.secret_greeting, "Changed content")
+
+    def test_list_editable_creates_content_for_current_grouping(self):
+        with (
+            patch.object(self.admin, "list_display", ("category_name", "content__secret_greeting")),
+            patch.object(self.admin, "list_editable", ("content__secret_greeting",)),
+            self.login_user_context(self.admin_user),
+        ):
+            response = self.client.get(f"{self.changelist_url}?language=de")
+            data = self.get_list_editable_post_data(response, content__secret_greeting="Guten Tag")
+            response = self.client.post(f"{self.changelist_url}?language=de", data)
+
+        self.assertEqual(response.status_code, 302)
+        content = GrouperModelContent.objects.get(grouper_model=self.grouper_instance)
+        self.assertEqual(content.language, "de")
+        self.assertEqual(content.secret_greeting, "Guten Tag")
+
+    def test_list_editable_rejects_content_from_another_grouper(self):
+        self.createContentInstance("en")
+        other_grouper = GrouperModel.objects.create(category_name="Other")
+        other_content = GrouperModelContent.objects.create(
+            grouper_model=other_grouper,
+            language="en",
+            secret_greeting="Other greeting",
+        )
+        with (
+            patch.object(self.admin, "list_display", ("category_name", "content__secret_greeting")),
+            patch.object(self.admin, "list_editable", ("content__secret_greeting",)),
+            self.login_user_context(self.admin_user),
+        ):
+            response = self.client.get(f"{self.changelist_url}?language=en")
+            data = self.get_list_editable_post_data(response, content__secret_greeting="Tampered")
+            form_index = next(
+                index
+                for index, form in enumerate(response.context["cl"].formset.forms)
+                if form.instance.pk == self.grouper_instance.pk
+            )
+            data[f"form-{form_index}-_content_object_id"] = other_content.pk
+            response = self.client.post(f"{self.changelist_url}?language=en", data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "The selected content does not match this object and grouping.")
+        other_content.refresh_from_db()
+        self.assertEqual(other_content.secret_greeting, "Other greeting")
+
+    def test_form_class_created(self):
+        """The form class has automatically been enhanced with the GrouperAdminFormMixin for
+        the appropriate content model (actually its parent class _GrouperAdminFormMixin)"""
+        # Arrange
+        from cms.admin.utils import _GrouperAdminFormMixin
+
+        # Assert
+        self.assertTrue(issubclass(self.admin.form, _GrouperAdminFormMixin))
+        self.assertEqual(self.admin.form._content_model, GrouperModelContent)
+
+    def test_content_field_is_valid_in_list_editable(self):
+        admin = copy.copy(self.admin)
+        admin.list_display = ("category_name", "content__secret_greeting")
+        admin.list_editable = ("content__secret_greeting",)
+
+        self.assertEqual(admin.check(), [])
+
+    def test_grouping_field_is_invalid_in_list_editable(self):
+        admin = copy.copy(self.admin)
+        admin.list_display = ("category_name", "content__language")
+        admin.list_editable = ("content__language",)
+
+        errors = admin.check()
+
+        self.assertIn("admin.E125", [error.id for error in errors])
+
+    def test_form_class_content_fields(self):
+        """The content fields appear in the admin form with a prefix"""
+        # Assert
+        for field in self.admin.form._content_fields:
+            self.assertIn(CONTENT_PREFIX + field, self.admin.form.base_fields)
+
+    def test_content_model_detected(self) -> None:
+        """Content model has been detected correctly for grouper admin"""
+        # Assert
+        admin = site._registry[GrouperModel]
+        self.assertEqual(admin.content_model, GrouperModelContent)
+
+    def test_extra_grouping_field_fixed(self):
+        """Extra grouping fields are retrieved correctly"""
+        with force_language("en"):
+            expected_language = "zh"
+            self.admin.language = expected_language
+
+            admin_language = self.admin.get_language()
+            current_content_filters = self.admin.current_content_filters
+
+            self.assertEqual(admin_language, expected_language)
+            self.assertEqual(current_content_filters["language"], expected_language)
+
+    def test_extra_grouping_field_current(self):
+        """Extra grouping fields (language) when not set return current default correctly"""
+        del self.admin.language  # No pre-set language
+        expected_language = get_language()
+
+        admin_language = self.admin.get_language()
+        current_content_filters = self.admin.current_content_filters
+
+        self.assertEqual(admin_language, expected_language)
+        self.assertEqual(current_content_filters["language"], expected_language)
+
+    def test_prepopulated_fields_pass_checks(self):
+        """Prepopulated fields work for content field"""
+        # Arrange
+        admin = copy.copy(self.admin)
+        admin.prepopulated_fields = dict(
+            category_name=["category_name"],  # Both key and value from GrouperModel
+            some_field=["content__secret_greeting"],  # Value from ContentModel
+            content__secret_greeting=["category_name"],  # Key from GrouperModel
+            content__region=["content__secret_greeting"],  # Both key and value from ContentModel
+        )
+
+        # Act
+        check_results = admin.check()
+
+        # Assert
+        self.assertEqual(check_results, [])  # No errors
+
+    def test_invalid_prepopulated_content_fields_fail_checks(self):
+        """Prepopulated fields with invalid content field names fail checks"""
+        # Arrange
+        admin = copy.copy(self.admin)
+        admin.prepopulated_fields = dict(
+            some_field=["content__public_greeting"],  # Value from ContentModel: 1 error
+            content__public_greeting=["category_name"],  # Key from GrouperModel: 1 error
+            content__country=["content__public_greeting"],  # Both key and value from ContentModel: 2 errors
+        )
+
+        # Act
+        check_results = admin.check()
+
+        # Assert
+        self.assertEqual(len(check_results), 4)  # 4 errors expected (see above)
+
+    @wo_content_permission
+    def test_prepopulated_fields_exclude_readonly_fields(self):
+        """Read-only fields are removed from prepopulated field keys."""
+        # Arrange
+        admin = copy.copy(self.admin)
+        admin.prepopulated_fields = {
+            "content__secret_greeting": ["category_name"],
+            "category_name": ["content__secret_greeting"],
+        }
+
+        # Act
+        readonly_fields = admin.get_readonly_fields(None)
+        prepopulated = admin.get_prepopulated_fields(None)
+
+        # Assert
+        self.assertIn("content__secret_greeting", readonly_fields)
+        self.assertNotIn("content__secret_greeting", prepopulated)
+        self.assertIn("category_name", prepopulated)
+        # The class attribute is not mutated by get_readonly_fields/get_prepopulated_fields.
+        self.assertIn("content__secret_greeting", admin.prepopulated_fields)
+
+    def test_prepopulated_fields_respects_class_attribute_after_init(self):
+        """``cls.prepopulated_fields`` set after the admin is instantiated is honored."""
+        # Arrange
+        admin = copy.copy(self.admin)
+        admin.prepopulated_fields = {"category_name": ["content__secret_greeting"]}
+
+        # Act
+        prepopulated = admin.get_prepopulated_fields(None)
+
+        # Assert: no shadow instance attribute hides the class-level value.
+        self.assertEqual(prepopulated, {"category_name": ["content__secret_greeting"]})
+
+    def test_changelist_view_does_not_call_get_content_obj(self):
+        self.createContentInstance("en")
+
+        with self.login_user_context(self.admin_user):
+            with patch.object(self.admin, "get_content_obj", wraps=self.admin.get_content_obj) as mocked_get_content_obj:
+                response = self.client.get(f"{self.changelist_url}?language=en", follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(mocked_get_content_obj.call_count, 0)
+
+    def test_change_view_calls_get_content_obj(self):
+        self.createContentInstance("en")
+
+        with self.login_user_context(self.admin_user):
+            with patch.object(self.admin, "get_content_obj", wraps=self.admin.get_content_obj) as mocked_get_content_obj:
+                response = self.client.get(f"{self.change_url}?language=en", follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertGreater(mocked_get_content_obj.call_count, 0)
+        self.assertTrue(any(call.args and call.args[0] == self.grouper_instance for call in mocked_get_content_obj.call_args_list))
+
+    def test_get_content_obj_caches_on_grouper_object(self):
+        content_instance = self.createContentInstance("en")
+        self.admin.language = "en"
+        self.admin.clear_content_cache()
+
+        self.assertFalse(hasattr(self.grouper_instance, "_grouper_admin_content_obj_cache"))
+
+        with self.assertNumQueries(1):
+            cached_content = self.admin.get_content_obj(self.grouper_instance)
+
+        self.assertEqual(cached_content, content_instance)
+        self.assertTrue(hasattr(self.grouper_instance, "_grouper_admin_content_obj_cache"))
+
+        with self.assertNumQueries(0):
+            cached_again = self.admin.get_content_obj(self.grouper_instance)
+
+        self.assertIs(cached_again, cached_content)
+
+
+class GrouperChangeListTestCase(SetupMixin, CMSTestCase):
+    def test_language_selector(self):
+        """All languages available to select"""
+        # Act
+        with self.login_user_context(self.admin_user):
+            response = self.client.get(self.changelist_url)
+        # Assert
+        for lang, verb in self.admin.get_language_tuple(site=Site.objects.get_current()):
+            self.assertContains(response, f'<option value="{lang}"')
+
+    def test_empty_content(self) -> None:
+        """Without any content being created the changelist shows an empty content text"""
+        with self.login_user_context(self.admin_user):
+            for language in ("en", "de", "it"):
+                # Act
+                response = self.client.get(self.changelist_url + f"?language={language}")
+                # Assert
+                self.assertContains(response, "Empty content")
+
+    def test_with_content(self) -> None:
+        """Create one content object and see if it appears in the right admin"""
+        # Arrange
+        random_content = self.createContentInstance("de")
+        with self.login_user_context(self.admin_user):
+            # Act
+            response = self.client.get(self.changelist_url + "?language=de")
+            # Assert
+            self.assertContains(response, "Grouper Category")
+            self.assertContains(response, random_content.secret_greeting)
+
+            for language in ("en", "it"):
+                # Act
+                response = self.client.get(self.changelist_url + f"?language={language}")
+                # Assert
+                self.assertContains(response, "Empty content")
+
+    def test_with_content_only(self) -> None:
+        """Create one content object and see if it appears in the right admin"""
+        # Arrange
+        random_content = {
+            lang: self.createContentInstance(lang).secret_greeting for lang in get_language_list(site_id=settings.SITE_ID)
+        }
+        with self.login_user_context(self.admin_user):
+            for language in get_language_list(site_id=Site.objects.get_current().pk):
+                # Act
+                response = self.client.get(self.changelist_url + f"?language={language}")
+                # Assert
+                self.assertContains(response, "Grouper Category")
+                self.assertContains(response, random_content[language])
+
+    def test_get_content_obj_uses_prefetch_cache(self) -> None:
+        """Iterating the admin queryset and calling ``get_content_obj`` on each grouper must
+        not issue per-row queries — the prefetch registered in ``get_queryset`` is expected
+        to populate ``_admin_prefetch_cache``, so the total query count stays constant."""
+        # Arrange: baseline + many grouper/content pairs.
+        self.createContentInstance("en")
+        for i in range(10):
+            extra = GrouperModel.objects.create(category_name=f"Grouper {i}")
+            GrouperModelContent.objects.create(
+                grouper_model=extra, language="en", secret_greeting=f"Greeting {i}"
+            )
+
+        request = self.get_request()
+        request.user = self.admin_user
+        self.admin.language = "en"
+
+        # Act: mimic what the changelist does — materialize the queryset, then look up
+        # each grouper's content object.
+        with CaptureQueriesContext(connection) as ctx:
+            groupers = list(self.admin.get_queryset(request))
+            for grouper in groupers:
+                self.assertIsNotNone(self.admin.get_content_obj(grouper))
+
+        # Assert: one query for groupers + one for the prefetch = 2.
+        # Without the prefetch we'd see 1 + N queries (12 here).
+        self.assertLessEqual(
+            len(ctx),
+            3,
+            f"Expected ≤ 3 queries for 11 groupers thanks to prefetch_related, got {len(ctx)}. "
+            f"Looks like ``get_content_obj`` is not using the prefetch cache.",
+        )
+
+    def test_changelist_view_has_no_n_plus_1(self) -> None:
+        """End-to-end regression guard: the query count of the changelist HTTP view must
+        not grow with the number of grouper instances. Protects against future n+1s
+        introduced by list_display getters, action buttons, or related hooks."""
+        # Arrange: baseline with a single grouper (from setUp) + one content object.
+        self.createContentInstance("en")
+
+        with self.login_user_context(self.admin_user):
+            # Warm up the client/session so login-related queries don't pollute counts.
+            self.client.get(self.changelist_url + "?language=en")
+
+            with CaptureQueriesContext(connection) as baseline:
+                response = self.client.get(self.changelist_url + "?language=en")
+            self.assertEqual(response.status_code, 200)
+
+            # Act: add many more grouper/content pairs.
+            for i in range(10):
+                extra = GrouperModel.objects.create(category_name=f"Grouper {i}")
+                GrouperModelContent.objects.create(
+                    grouper_model=extra, language="en", secret_greeting=f"Greeting {i}"
+                )
+
+            with CaptureQueriesContext(connection) as scaled:
+                response = self.client.get(self.changelist_url + "?language=en")
+            self.assertEqual(response.status_code, 200)
+
+        # Assert: query count is invariant to number of rows.
+        self.assertEqual(
+            len(baseline),
+            len(scaled),
+            f"Changelist issued {len(baseline)} queries for 1 grouper but {len(scaled)} for 11. "
+            f"This suggests an n+1 has been introduced.",
+        )
+
+
+class SimpleGrouperChangeListTestCase(SimpleSetupMixin, CMSTestCase):
+    def test_mixed_change_form(self):
+        """Change form contains input for both grouper and content objects"""
+        # Arrange
+        random_content = self.createContentInstance("en")
+        with self.login_user_context(self.admin_user):
+            # Act
+            response = self.client.get(f"{self.change_url}?language=en", follow=True)
+            # Assert
+            # Contains relation to grouper as hidden input
+            self.assertContains(
+                response,
+                '<input type="hidden" name="content__simple_grouper_model"',
+            )
+            # Contains grouper field with category (and its value)
+            self.assertContains(
+                response,
+                '<input type="text" name="category_name" value="Grouper Category"',
+            )
+            # Contains content secret message as textarea
+            self.assertContains(response, '<textarea name="content__secret_greeting"')
+            self.assertContains(response, random_content.secret_greeting)
+
+    def test_empty_content(self) -> None:
+        """Without any content being created the changelist shows an empty content text"""
+        with self.login_user_context(self.admin_user):
+            # Act
+            response = self.client.get(self.changelist_url)
+            # Assert
+            self.assertContains(response, "Empty content")
+
+    def test_with_content(self) -> None:
+        """Create one content object and see if it appears in the admin"""
+        # Arrange
+        random_content = self.createContentInstance()
+        with self.login_user_context(self.admin_user):
+            # Act
+            response = self.client.get(self.changelist_url)
+            # Assert
+            self.assertContains(response, "Grouper Category")
+            self.assertContains(response, random_content.secret_greeting)
+
+    def test_no_language_selector_without_extra_grouping_field(self) -> None:
+        """No language selector is shown when no extra grouping field exists."""
+        with self.login_user_context(self.admin_user):
+            # Act
+            response = self.client.get(self.changelist_url)
+            # Assert
+            self.assertNotContains(response, 'class="language-selector"')
+            self.assertNotContains(response, 'class="language-selector js-language-selector"')
+
+
+class GrouperChangeTestCase(SetupMixin, CMSTestCase):
+    def test_mixed_change_form(self):
+        """Change form contains input for both grouper and content objects"""
+        # Arrange
+        random_content = self.createContentInstance("en")
+        with self.login_user_context(self.admin_user):
+            # Act
+            response = self.client.get(f"{self.change_url}?language=en", follow=True)
+            # Assert
+            # Contains relation to grouper as hidden input
+            self.assertContains(
+                response,
+                '<input type="hidden" name="content__grouper_model"',
+            )
+            # Contains extra grouping field as hidden input
+            self.assertContains(
+                response,
+                '<input type="hidden" name="content__language" value="en" id="id_content__language">',
+            )
+            # Contains grouper field with category (and its value)
+            self.assertContains(
+                response,
+                '<input type="text" name="category_name" value="Grouper Category"',
+            )
+            # Contains content secret message as textarea
+            self.assertContains(response, '<textarea name="content__secret_greeting"')
+            self.assertContains(response, random_content.secret_greeting)
+
+    def test_change_form_contains_defaults_for_groupers(self) -> None:
+        with self.login_user_context(self.admin_user):
+            # Act
+            response = self.client.get(self.change_url + "?language=en", follow=True)
+            # Assert
+            self.assertContains(response, 'name="content__language" value="en"')
+            self.assertNotContains(response, 'name="content__language" value="de"')
+
+            # Act
+            response = self.client.get(self.change_url + "?language=de")
+            # Assert
+            self.assertContains(response, 'name="content__language" value="de"')
+            self.assertNotContains(response, 'name="content__language" value="en"')
+
+    def test_is_latest_content_obj(self) -> None:
+        """The latest content object is recognized as such, a stale one is not, and the
+        add view (no content object) counts as latest."""
+        content = self.createContentInstance("en")
+        self.admin.language = "en"
+        try:
+            # The actual content object is the latest
+            self.assertTrue(self.admin.is_latest_content_obj(content, self.grouper_instance))
+            # A stale content object (different pk) is not the latest
+            stale = copy.copy(content)
+            stale.pk = content.pk + 1000
+            self.assertFalse(self.admin.is_latest_content_obj(stale, self.grouper_instance))
+            # The add view (no content object) always counts as latest
+            self.assertTrue(self.admin.is_latest_content_obj(None))
+        finally:
+            del self.admin.language
+
+    def test_language_selector_shown_for_latest_content(self) -> None:
+        """The change form offers the language selector when the latest content is shown."""
+        self.createContentInstance("en")
+        with self.login_user_context(self.admin_user):
+            response = self.client.get(self.change_url + "?language=en")
+            self.assertContains(response, 'id="page_form_lang_tabs"')
+
+    def test_language_selector_hidden_for_non_latest_content(self) -> None:
+        """The change form drops the language selector when an older (non-latest) content
+        object is shown. Switching languages back and forth would otherwise silently bring
+        up the latest content instead - confusing UX."""
+        content = self.createContentInstance("en")
+        # Simulate a versioning package that shows an older (non-latest) content object
+        stale = copy.copy(content)
+        stale.pk = content.pk + 1000
+        with patch.object(type(self.admin), "get_content_obj", return_value=stale):
+            with self.login_user_context(self.admin_user):
+                response = self.client.get(self.change_url + "?language=en")
+                self.assertNotContains(response, 'id="page_form_lang_tabs"')
+
+    def test_get_urls_declares_content_change_when_unregistered(self) -> None:
+        """The grouper admin provides a change URL for the (unregistered) content model."""
+        names = [url.name for url in self.admin.get_urls()]
+        self.assertIn("sampleapp_groupermodelcontent_change", names)
+
+    def test_get_urls_skips_content_change_when_registered(self) -> None:
+        """The declaration is dropped when the content model has its own admin."""
+        site.register(GrouperModelContent)
+        try:
+            names = [url.name for url in self.admin.get_urls()]
+            self.assertNotIn("sampleapp_groupermodelcontent_change", names)
+        finally:
+            site.unregister(GrouperModelContent)
+
+    def test_content_change_url_redirects_to_grouper(self) -> None:
+        """A content object's change URL redirects to the grouper change view, selecting that
+        specific content object and its grouping fields."""
+        param = self.admin.content_pk_url_param
+        content = self.createContentInstance("en")
+        content_change_url = admin_reverse("sampleapp_groupermodelcontent_change", args=(content.pk,))
+        with self.login_user_context(self.admin_user):
+            response = self.client.get(content_change_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url.startswith(self.change_url))
+        self.assertIn(f"{param}={content.pk}", response.url)
+        self.assertIn("language=en", response.url)
+
+    def test_content_change_redirect_rejects_post(self) -> None:
+        """The redirect view is GET-only: a POST is rejected (405) rather than silently turned
+        into a GET that discards its payload."""
+        content = self.createContentInstance("en")
+        content_change_url = admin_reverse("sampleapp_groupermodelcontent_change", args=(content.pk,))
+        with self.login_user_context(self.admin_user):
+            response = self.client.post(content_change_url, data={"category_name": "changed"})
+        self.assertEqual(response.status_code, 405)
+
+    def test_specific_content_obj_shown_and_selector_dropped(self) -> None:
+        """Requesting a specific (non-latest) content object by pk shows exactly that object and
+        drops the language selector."""
+        param = self.admin.content_pk_url_param
+        latest = self.createContentInstance("en")  # lower pk: picked as latest by .first()
+        other = self.createContentInstance("en")  # higher pk: a different content object
+        with self.login_user_context(self.admin_user):
+            response = self.client.get(f"{self.change_url}?{param}={other.pk}")
+        # The requested (non-latest) content object is shown ...
+        self.assertContains(response, other.secret_greeting)
+        self.assertNotContains(response, latest.secret_greeting)
+        # ... and the language selector is dropped because it is not the latest content
+        self.assertNotContains(response, 'id="page_form_lang_tabs"')
+
+    def test_specific_latest_content_obj_keeps_selector(self) -> None:
+        """Requesting the latest content object by pk shows it and keeps the language selector."""
+        param = self.admin.content_pk_url_param
+        latest = self.createContentInstance("en")  # lower pk: picked as latest by .first()
+        self.createContentInstance("en")
+        with self.login_user_context(self.admin_user):
+            response = self.client.get(f"{self.change_url}?{param}={latest.pk}")
+        self.assertContains(response, latest.secret_greeting)
+        self.assertContains(response, 'id="page_form_lang_tabs"')
+
+    def test_invalid_content_pk_falls_back_to_latest(self) -> None:
+        """An invalid content pk is ignored and the latest content is shown."""
+        param = self.admin.content_pk_url_param
+        content = self.createContentInstance("en")
+        with self.login_user_context(self.admin_user):
+            response = self.client.get(f"{self.change_url}?language=en&{param}=not-a-pk")
+        self.assertContains(response, content.secret_greeting)
+        self.assertContains(response, 'id="page_form_lang_tabs"')
+
+    def test_nonexistent_content_pk_falls_back_to_latest(self) -> None:
+        """A syntactically valid but nonexistent content pk falls back to the latest content."""
+        param = self.admin.content_pk_url_param
+        content = self.createContentInstance("en")
+        nonexistent_pk = content.pk + 1
+        with self.login_user_context(self.admin_user):
+            response = self.client.get(
+                f"{self.change_url}?language=en&{param}={nonexistent_pk}"
+            )
+        self.assertContains(response, content.secret_greeting)
+        self.assertContains(response, 'id="page_form_lang_tabs"')
+
+    @wo_content_permission
+    def test_change_form_wo_write_permit(self) -> None:
+        """If no change permission exists for content mark content fields readonly."""
+        # Arrange
+        random_content = self.createContentInstance("en")
+        with self.login_user_context(self.admin_user):
+            # Act
+            response = self.client.get(self.change_url + "?language=en")
+            # Assert
+            # Contains relation to grouper as hidden input
+            self.assertContains(
+                response,
+                '<input type="hidden" name="content__grouper_model"',
+            )
+            # Contains extra grouping field as hidden input
+            self.assertContains(
+                response,
+                '<input type="hidden" name="content__language" value="en" id="id_content__language">',
+            )
+            # Contains extra grouping field as hidden input
+            self.assertContains(
+                response,
+                '<input type="hidden" name="content__language" value="en" id="id_content__language">',
+            )
+            # Contains grouper field with category (and its value)
+            self.assertContains(response, '<input type="text" name="category_name" value="Grouper Category"')
+            # Does not contain content secret message as textarea
+            self.assertContains(response, 'field-content__secret_greeting"')
+
+            self.assertContains(response, random_content.secret_greeting)
+
+    def test_admin_with_write_permit(self) -> None:
+        """If change permissions exist for content model its fields in the admin are not readonly."""
+        # Assert
+        self.assertNotIn("content__secret_greeting", self.admin.get_readonly_fields(None))
+
+    @wo_content_permission
+    def test_admin_wo_write_permit(self) -> None:
+        # Assert
+        self.assertIn("content__secret_greeting", self.admin.get_readonly_fields(None))
+
+    def test_save_grouper_model(self) -> None:
+        # Arrange
+        random_content = self.createContentInstance("en")
+        data = {
+            "content__language": "en",
+            "category_name": "Changed content",
+            "some_field": "some content",
+            "content__region": "world",
+            "content__secret_greeting": random_content.secret_greeting,
+        }
+        with self.login_user_context(self.admin_user):
+            # Act
+            response = self.client.post(self.change_url + "?language=en", data=data)
+            # Assert
+            self.grouper_instance.refresh_from_db()
+            self.assertEqual(response.status_code, 302)  # Expecting redirect
+            self.assertEqual(self.grouper_instance.category_name, data["category_name"])
+
+    def test_save_content_model(self) -> None:
+        # Arrange
+        self.createContentInstance("en")
+        data = {
+            "content__language": "en",
+            "category_name": self.grouper_instance.category_name,
+            "some_field": "some content",
+            "content__region": "world",
+            "content__secret_greeting": "New greeting",
+        }
+        # Act
+        with self.login_user_context(self.admin_user):
+            response = self.client.post(self.change_url + "?language=en", data=data)
+            content_instance = GrouperModelContent.objects.filter(language="en").first()
+        # Assert
+        self.assertEqual(response.status_code, 302)  # Expecting redirect
+        self.assertIsNotNone(content_instance)
+        self.assertEqual(content_instance.secret_greeting, data["content__secret_greeting"])
+
+    def test_create_grouper_model(self) -> None:
+        # Arrange
+        data = {
+            "content__language": "de",
+            "category_name": "My new category",
+            "some_field": "some content",
+            "content__region": "world",
+            "content__secret_greeting": "Some new content",
+        }
+        # Act
+        with self.login_user_context(self.admin_user):
+            response = self.client.post(self.add_url + "?language=de", data=data)
+            grouper_instance = GrouperModel.objects.filter(category_name=data["category_name"]).first()
+            content_instance_en = grouper_instance.groupermodelcontent_set.filter(language="en").first()  # Get English
+            content_instance_de = grouper_instance.groupermodelcontent_set.filter(language="de").first()  # Get German
+
+        # Assert
+        self.assertEqual(response.status_code, 302)  # Expecting redirect
+        self.assertEqual(GrouperModel.objects.all().count(), 2)
+        self.assertIsNotNone(grouper_instance)
+        self.assertIsNone(content_instance_en)  # Should not exist
+        self.assertIsNotNone(content_instance_de)  # Should exist
+        self.assertEqual(content_instance_de.secret_greeting, data["content__secret_greeting"])  # Has new content
+
+    def test_create_content_model(self) -> None:
+        # Arrange
+        random_content = self.createContentInstance("en")
+        data = {
+            "content__language": "de",
+            "category_name": self.grouper_instance.category_name,
+            "some_field": "some content",
+            "content__region": "world",
+            "content__secret_greeting": "New German content",
+        }
+        # Act
+        with self.login_user_context(self.admin_user):
+            response = self.client.post(self.change_url + "?language=de", data=data)
+            content_instance_en = GrouperModelContent.objects.filter(language="en").first()  # Get English
+            content_instance_de = GrouperModelContent.objects.filter(language="de").first()  # New German instance
+        # Assert
+        self.assertEqual(response.status_code, 302)  # Expecting redirect
+        self.assertIsNotNone(content_instance_en)
+        self.assertEqual(content_instance_en.secret_greeting, random_content.secret_greeting)  # unchanged
+        self.assertIsNotNone(content_instance_de)  # Exists?
+        self.assertEqual(content_instance_de.secret_greeting, data["content__secret_greeting"])  # Has new content
+
+
+class GrouperCanChangeContentTestCase(SetupMixin, CMSTestCase):
+    """Tests for ``GrouperModelAdmin.can_change_content`` in both the add and change case.
+
+    The sampleapp's ``GrouperAdmin`` overrides ``can_change_content``, so we call the base
+    implementation directly. ``request.user`` is a ``MagicMock`` because Django's default
+    auth backend returns no object-level permissions for non-superusers, which would make
+    the change case impossible to exercise otherwise."""
+
+    def _can_change_content(self, request, content_obj):
+        return GrouperModelAdmin.can_change_content(self.admin, request, content_obj)
+
+    def _request(self, has_perm_return=True):
+        request = self.get_request()
+        request.user = MagicMock()
+        request.user.has_perm.return_value = has_perm_return
+        return request
+
+    def test_add_case_checks_add_permission(self):
+        """Without a content object, the content model's add permission is checked."""
+        request = self._request(has_perm_return=True)
+
+        self.assertTrue(self._can_change_content(request, None))
+
+        opts = GrouperModelContent._meta
+        expected_perm = f"{opts.app_label}.{get_permission_codename('add', opts)}"
+        request.user.has_perm.assert_called_once_with(expected_perm, None)
+
+    def test_add_case_denied_without_permission(self):
+        """Without the add permission, the add case returns False."""
+        request = self._request(has_perm_return=False)
+
+        self.assertFalse(self._can_change_content(request, None))
+
+    def test_change_case_checks_change_permission(self):
+        """With a content object, the change permission is checked, passing the object for
+        object-level backends."""
+        content_obj = self.createContentInstance("en")
+        request = self._request(has_perm_return=True)
+
+        self.assertTrue(self._can_change_content(request, content_obj))
+
+        opts = GrouperModelContent._meta
+        expected_perm = f"{opts.app_label}.{get_permission_codename('change', opts)}"
+        request.user.has_perm.assert_called_once_with(expected_perm, content_obj)
+
+    def test_change_case_denied_without_permission(self):
+        """Without the change permission, the change case returns False."""
+        content_obj = self.createContentInstance("en")
+        request = self._request(has_perm_return=False)
+
+        self.assertFalse(self._can_change_content(request, content_obj))
+
+    def test_change_case_respects_is_editable(self):
+        """When the content object exposes ``is_editable`` returning False, the user cannot
+        change it even with the permission."""
+        content_obj = self.createContentInstance("en")
+        content_obj.is_editable = lambda *_: False
+        request = self._request(has_perm_return=True)
+
+        self.assertFalse(self._can_change_content(request, content_obj))
+
+    def test_superuser_can_change_content_in_both_cases(self):
+        """Superusers pass the permission check for both add and change cases."""
+        request = self.get_request()
+        request.user = self.admin_user
+
+        self.assertTrue(self._can_change_content(request, None))
+
+        content_obj = self.createContentInstance("en")
+        self.assertTrue(self._can_change_content(request, content_obj))
+
+
+class ReasonedBool(int):
+    """Test stand-in for a "rich bool" as returned by e.g. djangocms-versioning's
+    ``as_bool``: truthy/falsy via the int value, with the reason exposed by ``str()``."""
+
+    def __new__(cls, value, reason=""):
+        obj = super().__new__(cls, bool(value))
+        obj.reason = reason
+        return obj
+
+    def __str__(self):
+        return self.reason
+
+
+class GrouperReadonlyMessageTestCase(SetupMixin, CMSTestCase):
+    """Tests for ``GrouperModelAdmin.get_content_readonly_message``: the permission
+    case plus both plain-bool and rich-bool returns from ``is_editable``."""
+
+    def _message(self, request, content_obj):
+        return GrouperModelAdmin.get_content_readonly_message(self.admin, request, content_obj)
+
+    def _request(self, has_perm_return=True):
+        request = self.get_request()
+        request.user = MagicMock()
+        request.user.has_perm.return_value = has_perm_return
+        return request
+
+    def test_missing_permission_returns_permission_message(self):
+        """Without the change permission, the permission message is returned, regardless
+        of editability."""
+        content_obj = self.createContentInstance("en")
+        request = self._request(has_perm_return=False)
+
+        self.assertEqual(
+            self._message(request, content_obj),
+            "You do not have permission to change this content.",
+        )
+
+    def test_editable_content_returns_none(self):
+        """Editable content (with permission) has no read-only message."""
+        content_obj = self.createContentInstance("en")
+        content_obj.is_editable = lambda *_: True
+        request = self._request(has_perm_return=True)
+
+        self.assertIsNone(self._message(request, content_obj))
+
+    def test_plain_false_returns_generic_message(self):
+        """A plain ``False`` from ``is_editable`` carries no reason, so the generic
+        message is used."""
+        content_obj = self.createContentInstance("en")
+        content_obj.is_editable = lambda *_: False
+        request = self._request(has_perm_return=True)
+
+        self.assertEqual(self._message(request, content_obj), " ")
+
+    def test_rich_bool_returns_its_reason(self):
+        """A falsy rich bool surfaces its own reason via ``str()``."""
+        content_obj = self.createContentInstance("en")
+        content_obj.is_editable = lambda *_: ReasonedBool(False, "Version is not a draft")
+        request = self._request(has_perm_return=True)
+
+        self.assertEqual(self._message(request, content_obj), "Version is not a draft")
+
+    def test_truthy_rich_bool_returns_none(self):
+        """A truthy rich bool means editable, so no message even though it has a str()."""
+        content_obj = self.createContentInstance("en")
+        content_obj.is_editable = lambda *_: ReasonedBool(True)
+        request = self._request(has_perm_return=True)
+
+        self.assertIsNone(self._message(request, content_obj))
+
+
+class SimpleGrouperChangeTestCase(SimpleSetupMixin, CMSTestCase):
+    def test_save_grouper_model(self) -> None:
+        # Arrange
+        random_content = self.createContentInstance()
+        data = {
+            "category_name": "Changed content",
+            "content__region": "world",
+            "content__language": "de",
+            "content__secret_greeting": random_content.secret_greeting,
+        }
+        with self.login_user_context(self.admin_user):
+            # Act
+            response = self.client.post(self.change_url, data=data)
+            # Assert
+            self.grouper_instance.refresh_from_db()
+            self.assertEqual(response.status_code, 302)  # Expecting redirect
+            self.assertEqual(self.grouper_instance.category_name, data["category_name"])
+
+    def test_save_content_model(self) -> None:
+        # Arrange
+        self.createContentInstance()
+        data = {
+            "category_name": self.grouper_instance.category_name,
+            "content__region": "world",
+            "content__language": "de",
+            "content__secret_greeting": "New greeting",
+        }
+        # Act
+        with self.login_user_context(self.admin_user):
+            response = self.client.post(self.change_url, data=data)
+            content_instance = SimpleGrouperModelContent.objects.first()
+        # Assert
+        self.assertEqual(response.status_code, 302)  # Expecting redirect
+        self.assertIsNotNone(content_instance)
+        self.assertEqual(content_instance.secret_greeting, data["content__secret_greeting"])
+
+    def test_create_grouper_model(self) -> None:
+        # Arrange
+        data = {
+            "category_name": "My new category",
+            "content__region": "world",
+            "content__language": "de",
+            "content__secret_greeting": "Some new content",
+        }
+        # Act
+        with self.login_user_context(self.admin_user):
+            response = self.client.post(self.add_url, data=data)
+            grouper_instance = SimpleGrouperModel.objects.filter(category_name=data["category_name"]).first()
+            content_instance = grouper_instance.simplegroupermodelcontent_set.first()  # Get content
+
+        # Assert
+        self.assertEqual(response.status_code, 302)  # Expecting redirect
+        self.assertEqual(SimpleGrouperModel.objects.all().count(), 2)
+        self.assertIsNotNone(grouper_instance)
+        self.assertIsNotNone(content_instance)  # Should exist
+        self.assertEqual(content_instance.secret_greeting, data["content__secret_greeting"])  # Has new content
+
+    def test_create_content_model(self) -> None:
+        # Arrange
+        self.createContentInstance()
+        data = {
+            "category_name": self.grouper_instance.category_name,
+            "content__region": "world",
+            "content__language": "de",
+            "content__secret_greeting": "New content",
+        }
+        # Act
+        with self.login_user_context(self.admin_user):
+            response = self.client.post(self.change_url, data=data)
+            content_instance = SimpleGrouperModelContent.objects.first()  # Get content
+        # Assert
+        self.assertEqual(response.status_code, 302)  # Expecting redirect
+        self.assertIsNotNone(content_instance)
+        self.assertEqual(content_instance.secret_greeting, data["content__secret_greeting"])  # Has new content
+
+
+class GrouperSearchTestCase(SimpleSetupMixin, CMSTestCase):
+    """Test suite for Grouper model search functionality in Django admin."""
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.SEARCH_FIELDS_DEFAULT = ("category_name", "content__secret_greeting")
+        cls.SEARCH_FIELDS_GROUPER_ONLY = ("category_name",)
+        cls.SEARCH_FIELDS_STARTSWITH = ("^category_name", "^content__secret_greeting")
+        cls.SEARCH_FIELDS_EXACT = ("=category_name", "=content__secret_greeting")
+
+    def setUp(self) -> None:
+        super().setUp()
+        self._setup_test_data()
+        self._setup_admin_config()
+
+    def _setup_test_data(self):
+        """Create test instances and content objects."""
+        self.another_grouper_instance = SimpleGrouperModel.objects.create(category_name="Another_Category")
+        self.grouper_content_objects = {}
+
+        for grouper in [self.grouper_instance, self.another_grouper_instance]:
+            self.grouper_content_objects[grouper.id] = self.createContentInstance(
+                language="en", grouper_instance=grouper, secret_greeting=f"{grouper.category_name}_Greeting"
+            )
+
+    def _setup_admin_config(self):
+        """Configure admin search fields."""
+        self.admin.search_fields = self.SEARCH_FIELDS_DEFAULT
+
+    def tearDown(self) -> None:
+        self.another_grouper_instance.delete()
+        super().tearDown()
+
+    def _get_search_url(self, query=""):
+        """Helper to construct search URL."""
+        return f"{self.changelist_url}?q={query}"
+
+    def _get_admin_change_url(self, instance):
+        """Helper to construct admin change URL."""
+        return f'href="/en/admin/sampleapp/{self.groupermodel}/{instance.pk}/change/?'
+
+    def _assert_instance_in_response(self, response, instance, should_contain=True):
+        """Helper to assert instance presence in response."""
+        assertion_method = self.assertContains if should_contain else self.assertNotContains
+        assertion_method(response, instance.category_name)
+        assertion_method(response, self._get_admin_change_url(instance))
+
+    def _assert_search_results(self, response, expected_instances):
+        """Helper to assert multiple search results."""
+        all_instances = [self.grouper_instance, self.another_grouper_instance]
+
+        for instance in all_instances:
+            should_contain = instance in expected_instances
+            self._assert_instance_in_response(response, instance, should_contain)
+
+    def _perform_search(self, query, expected_instances):
+        """Helper to perform search and assert results."""
+        with self.login_user_context(self.admin_user):
+            response = self.client.get(self._get_search_url(query), follow=True)
+            self._assert_search_results(response, expected_instances)
+            return response
+
+    def _test_expected_result_count(self, query, expected_count):
+        with self.login_user_context(self.admin_user):
+            response = self.client.get(self._get_search_url(query), follow=True)
+            content = response.content.decode()
+            actual_count = content.count('class="action-checkbox"')
+            self.assertEqual(
+                actual_count,
+                expected_count,
+                f"Expected {expected_count} results for query '{query}' "
+                f"with search_fields {self.admin.search_fields}, got {actual_count}",
+            )
+
+    def test_search_with_empty_query_returns_all_results(self):
+        """Empty search query should return all grouper instances."""
+        expected_instances = [self.grouper_instance, self.another_grouper_instance]
+        self._perform_search("", expected_instances)
+
+    def test_search_by_grouper_category_name(self):
+        """Search by grouper's category name should return matching instance."""
+        search_token = self.grouper_instance.category_name
+        expected_instances = [self.grouper_instance]
+        self._perform_search(search_token, expected_instances)
+
+    def test_search_by_content_field(self):
+        """Search by content field should return matching instance."""
+        content_obj = self.grouper_content_objects[self.grouper_instance.id]
+        search_token = content_obj.secret_greeting[:5]
+        expected_instances = [self.grouper_instance]
+        self._perform_search(search_token, expected_instances)
+
+    def test_search_with_no_matching_results(self):
+        """Search with non-existent term should return no results."""
+        search_token = get_random_string(10)
+        expected_instances = []
+        self._perform_search(search_token, expected_instances)
+
+    def test_search_returns_multiple_results_by_category(self):
+        """Search by common category term should return multiple instances."""
+        search_token = "Category"
+        expected_instances = [self.grouper_instance, self.another_grouper_instance]
+        self._perform_search(search_token, expected_instances)
+
+    def test_search_returns_multiple_results_by_content(self):
+        """Search by common content term should return multiple instances."""
+        search_token = "Greeting"
+        expected_instances = [self.grouper_instance, self.another_grouper_instance]
+        self._perform_search(search_token, expected_instances)
+
+    def test_search_without_content_fields_by_category(self):
+        """Search should work when content fields are excluded from search_fields."""
+        self.admin.search_fields = self.SEARCH_FIELDS_GROUPER_ONLY
+        search_token = "Category"
+        expected_instances = [self.grouper_instance, self.another_grouper_instance]
+        self._perform_search(search_token, expected_instances)
+
+    def test_search_without_content_fields_by_content_returns_nothing(self):
+        """Search by content should return nothing when content fields excluded."""
+        self.admin.search_fields = self.SEARCH_FIELDS_GROUPER_ONLY
+        search_token = "Greeting"
+        expected_instances = []
+        self._perform_search(search_token, expected_instances)
+
+    def test_startswith_search_by_category(self):
+        """Test startswith (^) search modifier on category field."""
+        self.admin.search_fields = ("^category_name",)
+        search_token = "Grouper"  # Matches "Grouper_Category" but not "Another_Category"
+        expected_instances = [self.grouper_instance]
+        self._perform_search(search_token, expected_instances)
+
+    def test_exact_search_by_category(self):
+        """Test exact match (=) search modifier on category field."""
+        self.admin.search_fields = ("=category_name",)
+        search_token = "Another_Category"
+        expected_instances = [self.another_grouper_instance]
+        self._perform_search(search_token, expected_instances)
+
+    def test_startswith_search_by_content(self):
+        """Test startswith (^) search modifier on content field."""
+        self.admin.search_fields = ("category_name", "^content__secret_greeting")
+        content_obj = self.grouper_content_objects[self.another_grouper_instance.id]
+        search_token = content_obj.secret_greeting[:-5]  # Partial match from start
+        expected_instances = [self.another_grouper_instance]
+        self._perform_search(search_token, expected_instances)
+
+    def test_exact_search_by_content(self):
+        """Test exact match (=) search modifier on content field."""
+        self.admin.search_fields = ("category_name", "=content__secret_greeting")
+        content_obj = self.grouper_content_objects[self.another_grouper_instance.id]
+        search_token = content_obj.secret_greeting  # Exact match
+        expected_instances = [self.another_grouper_instance]
+        self._perform_search(search_token, expected_instances)
+
+    def test_search_with_multiple_results_and_grouper_query(self):
+        """Test search configuration with category_name contains search."""
+        query = "Category"
+        self.admin.search_fields = ("category_name",)
+        self._test_expected_result_count(query, 2)
+
+    def test_search_with_startswith_grouper_query(self):
+        """Test search configuration with category_name starts with search."""
+        query = "Grouper"
+        self.admin.search_fields = ("^category_name",)
+        self._test_expected_result_count(query, 1)
+
+    def test_search_configurations_category_name_exact(self):
+        """Test search configuration with category_name exact match search."""
+        query = "Another_Category"
+        self.admin.search_fields = ("=category_name",)
+        self._test_expected_result_count(query, 1)
+
+    def test_search_content_secret_greeting_with_multiple_results(self):
+        """Test search configuration with content__secret_greeting field search."""
+        query = "Greeting"
+        self.admin.search_fields = ("content__secret_greeting",)
+        self._test_expected_result_count(query, 2)

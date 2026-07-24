@@ -1,0 +1,10 @@
+{% load cms_admin %}
+
+{# Non-field errors are not part of a fieldset, so render them separately. #}
+{{ form.non_field_errors }}
+
+{# Hidden fields are rendered outside the fieldset, mirroring django admin. #}
+{% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+
+{% admin_fieldset form as fieldset %}
+{% include "admin/includes/fieldset.html" with fieldset=fieldset heading_level=2 %}
